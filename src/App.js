@@ -1,24 +1,48 @@
 import logo from './logo.svg';
 import './App.css';
+import {Routes,Route} from 'react-router-dom';
+import {Navbar } from './Components/Navbar'
+import { useDataContext } from './contexts/data-context';
+import { Category } from './Components/Category/Category';
+import { VideoListPage } from './Components/VideoList/VideoListPage';
+import {Library} from './Components/Library/Library';
+import axios from "axios";
+import {useEffect} from "react";
+import { CategoryItem } from './Components/Category/CategoryItem';
 
 function App() {
+  const {state,dispatch}=useDataContext();
+ 
+  // useEffect(() => {
+  //   (async function () {
+  //     try {
+  //       const {
+  //         data: { videos },
+  //         status
+  //       } = await axios.get("./api/videos");
+  //       if (status === 200) {
+  //         dispatch({ type: "ADD_ALL_VIDEOS", payload: videos });
+  //         // setVideoId(videos[0].id);
+  //       }
+  //     } catch (error) {
+  //       alert(error);
+  //     }
+  
+  //   })();
+  // }, []);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+     <Navbar />
+     
+     <Routes >
+       <Route path='/' element={<Category/>}/>
+       <Route path='/library' element={<Library/>}/>
+       <Route path='/likedVideos' element={<likedVideos/>}/>
+       <Route path='/category/:id' element={<VideoListPage list={state.categoryPlaylist}/>}/>
+       <Route path='/playlist/:id' element={<VideoListPage list={state.userLibrary}/>}/>
+     </Routes>
+    
+  </div>
   );
 }
 

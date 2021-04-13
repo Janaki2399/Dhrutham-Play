@@ -28,8 +28,8 @@ export function LibraryItem({categoryItem,isUserPlayList}){
                       :`https://i.ytimg.com/img/no_thumbnail.jpg`}  alt="video-img"/>
                    
 
-                      <div className="card-icon-topRight " style={{width:"5rem",backgroundColor:"rgba(0,0,0,0.6)",color:"white"}}>
-                      <div className="flex-column center-align-ver-hor" style={{height:"11rem"}} >
+                      <div className="card-icon-topRight full-height" style={{width:"35%",backgroundColor:"rgba(0,0,0,0.6)",color:"white"}}>
+                      <div className="flex-column center-align-ver-hor playlist-count-style"  >
                         <div>
                         {categoryItem.list.length}
                         </div>

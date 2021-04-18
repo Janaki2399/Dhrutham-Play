@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import {Routes,Route} from 'react-router-dom';
 import {Navbar } from './Components/Navbar'
@@ -6,6 +5,7 @@ import { useDataContext } from './contexts/data-context';
 import { Category } from './Components/Category/Category';
 import { VideoListPage } from './Components/VideoList/VideoListPage';
 import {Library} from './Components/Library/Library';
+import {categoryPlayListData} from "./data";
 import axios from "axios";
 import {useEffect} from "react";
 import { CategoryItem } from './Components/Category/CategoryItem';
@@ -38,7 +38,7 @@ function App() {
        <Route path='/' element={<Category/>}/>
        <Route path='/library' element={<Library/>}/>
        <Route path='/likedVideos' element={<likedVideos/>}/>
-       <Route path='/category/:id' element={<VideoListPage list={state.categoryPlaylist}/>}/>
+       <Route path='/category/:id' element={<VideoListPage list={categoryPlayListData}/>}/>
        <Route path='/playlist/:id' element={<VideoListPage list={state.userLibrary}/>}/>
      </Routes>
     

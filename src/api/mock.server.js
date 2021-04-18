@@ -1,6 +1,6 @@
 import { createServer, Model, RestSerializer } from "miragejs";
 import faker from "faker";
-import { videoData } from "../data";
+import { allVideoData } from "../data";
 faker.seed(123);
 
 export default function setupMockServer() {
@@ -22,7 +22,7 @@ export default function setupMockServer() {
     },
 
     seeds(server) {
-      videoData.forEach((item) => {
+      allVideoData.forEach((item) => {
         server.create("video", {
           id: item.id,
           name: item.name,

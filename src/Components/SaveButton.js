@@ -1,13 +1,10 @@
-import { PlaylistDropDown } from "./PlaylistDropDown";
-import {useState} from "react";
-export function SaveButton({ videoId,setModal }) {
- 
+export function SaveButton({ videoId, setModal }) {
   return (
-    <div >
+    <div>
       <button
         onClick={() => {
-          console.log("hello");
-          setModal(true)}}
+          setModal(true);
+        }}
         class="nav-item btn-box"
       >
         <span class=" material-icons-outlined icon-color-gray icon-size-30">

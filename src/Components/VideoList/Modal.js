@@ -20,8 +20,6 @@ export function Modal({videoId,setModal}){
          <div>
             <PlaylistDropDown videoId={videoId} setModal={setModal}/>
         </div>
-        
-       
          </div>
     </div>
     )

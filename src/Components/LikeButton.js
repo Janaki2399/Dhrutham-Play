@@ -1,5 +1,5 @@
 import { useDataContext } from "../contexts/data-context";
-import { useState } from "react";
+
 export function LikeButton({ videoId }) {
 
   const { state,dispatch } = useDataContext();
@@ -17,7 +17,7 @@ export function LikeButton({ videoId }) {
           }})
           
         }}
-        className="nav-item btn-box">
+        className="icon-btn btn-box margin-right">
         <span
           class={
             !(getVideoObject(videoId)).isLiked

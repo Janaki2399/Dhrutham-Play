@@ -1,9 +1,6 @@
-import { useDataContext} from "../contexts/data-context"
 import {Link} from "react-router-dom";
 
 export function Navbar(){
-
-    const {dispatch}=useDataContext();
 
     return (
         <div className="nav navbar-height">

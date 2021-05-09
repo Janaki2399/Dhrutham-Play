@@ -3,7 +3,7 @@ import { SaveButton } from "../SaveButton";
 import { useDataContext } from "../../contexts/data-context";
 export function ViewVideo({ videoId, setModal }) {
   const { state } = useDataContext();
-  function getVideoObject(id) {
+  const getVideoObject = (id) => {
     return state.allVideos.find((item) => item.id === id);
   }
   return (

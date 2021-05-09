@@ -2,12 +2,12 @@ import { createContext, useContext, useReducer } from "react";
 import { reducerFunction } from "./reducerFunction";
 import {v4} from "uuid";
 import axios from "axios";
-import {allVideoData} from "../data";
-const dataContext = createContext();
+import {allVideos} from "../data";
+const DataContext = createContext();
 
 export function DataProvider({ children }) {
   const [state, dispatch] = useReducer(reducerFunction, {
-    allVideos:allVideoData,
+    allVideos,
     userLibrary:[{
       id:v4(),
       name:"liked videos",
@@ -38,7 +38,7 @@ export function DataProvider({ children }) {
     }
   }
   return (
-    <dataContext.Provider
+    <DataContext.Provider
       value={{
         state,
         dispatch,
@@ -47,10 +47,10 @@ export function DataProvider({ children }) {
       }}
     >
       {children}
-    </dataContext.Provider>
+    </DataContext.Provider>
   );
 }
 
 export function useDataContext() {
-  return useContext(dataContext);
+  return useContext(DataContext);
 }

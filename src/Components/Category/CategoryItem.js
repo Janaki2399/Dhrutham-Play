@@ -6,7 +6,6 @@ export function CategoryItem({ categoryItem, isUserPlayList }) {
   return (
     <div
       className="card card-shadow card-vertical"
-      style={{ maxWidth: "15rem" }}
       onClick={() => {
         navigate(`/category/${categoryItem.id}`);
       }}

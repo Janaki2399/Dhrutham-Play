@@ -4,11 +4,11 @@ import { RemoveButton } from "../RemoveButton";
 export function SideBarNav({ playlistId, list, setVideoId, isUserPlayList }) {
   const { state, dispatch } = useDataContext();
 
-  function getVideoObject(id) {
+  const getVideoObject = (id) =>{
     return state.allVideos.find((item) => item.id === id);
   }
 
-  function removeItem(event, videoId) {
+  const removeItem = (event, videoId) => {
     event.stopPropagation();
     dispatch({
       type: "REMOVE_ITEM_FROM_PLAYLIST",

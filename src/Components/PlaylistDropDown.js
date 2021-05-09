@@ -48,10 +48,7 @@ export function PlaylistDropDown({ videoId, setModal }) {
   return (
     <div className="padding-left flex-column margin-bottom">
       <div
-        style={{
-          maxHeight: "20rem",
-          overflowY: "scroll",
-        }}
+       className="drop-down"
       >
         {checkbox.map((item, index) => (
           <PlaylistCheckBox
@@ -64,7 +61,7 @@ export function PlaylistDropDown({ videoId, setModal }) {
       </div>
       <div className="padding-bottom padding-right">
         <input
-          className="border-bottom font-size-6 full-width"
+          className="border-bottom font-size-6 full-width margin-top"
           style={{ height: "1.3rem", outline: "0" }}
           value={input}
           onChange={(e) => {
@@ -75,8 +72,7 @@ export function PlaylistDropDown({ videoId, setModal }) {
 
         {input !== "" && (
           <button
-            className="margin-top padding-right btn btn-text text-end full-width"
-            style={{ color: "#1E40AF" }}
+            className="margin-top padding-right btn btn-text text-end full-width color-blue"
             onClick={createPlaylist}
           >
             CREATE

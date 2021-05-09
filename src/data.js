@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-export const allVideoData = [
+export const allVideos = [
   {
     id: "ShZ978fBl6Y",
     name: "Calum Scott - You Are The Reason",

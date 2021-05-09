@@ -6,11 +6,11 @@ export function Category() {
   const { state } = useDataContext();
   return (
     <div className="grid-col-3">
-      {categoryPlayListData.map((categoryItem) => {
+      {categoryPlayListData.map(({id,...categoryItem}) => {
         return (
           <CategoryItem
-            key={categoryItem.id}
-            categoryItem={categoryItem}
+            key={id}
+            categoryItem={{...categoryItem,id}}
             isUserPlayList={false}
           />
         );

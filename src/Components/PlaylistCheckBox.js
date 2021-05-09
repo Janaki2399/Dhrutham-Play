@@ -2,7 +2,7 @@ import { useDataContext } from "../contexts/data-context";
 export function PlaylistCheckBox({ item, index, videoId, setCheckBox }) {
   const { dispatch, state } = useDataContext();
 
-  function handleToggle(i) {
+  const handleToggle = (i)=> {
     setCheckBox((prev) =>
       prev.map((item, index) =>
         index === i ? { ...item, checked: !item.checked } : item
@@ -10,7 +10,7 @@ export function PlaylistCheckBox({ item, index, videoId, setCheckBox }) {
     );
   }
 
-  function toggleCheckBox(event){
+  const toggleCheckBox = (event) =>{
     handleToggle(index);
     if (event.target.checked) {
       dispatch({
@@ -29,12 +29,11 @@ export function PlaylistCheckBox({ item, index, videoId, setCheckBox }) {
       <input
         type="checkbox"
         id={item.id}
-        className="margin-right"
-        style={{ height: "1.2rem", width: "1.2rem" }}
+        className="margin-right checkbox-size"
         checked={item.checked}
         onChange={toggleCheckBox}
       />
-      <label style={{ width: "100%", fontSize: "1rem" }} for={item.id}>
+      <label className="full-width font-size-5" for={item.id}>
         {item.name}
       </label>
     </div>

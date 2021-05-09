@@ -11,7 +11,7 @@ export function Library() {
             <LibraryItem
               key={item.id}
               categoryItem={item}
-              isUserPlayList={index === 0 ? false : true}
+              isUserPlayList={index !== 0 }
             />
           );
         })}

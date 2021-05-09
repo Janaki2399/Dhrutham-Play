@@ -8,7 +8,7 @@ export function LibraryItem({ categoryItem, isUserPlayList }) {
   const navigate = useNavigate();
   const { dispatch } = useDataContext();
 
-  function removeItem(event, id) {
+  const removeItem = (event, id) => {
     event.stopPropagation();
     dispatch({
       type: "DELETE_PLAYLIST",
@@ -21,7 +21,6 @@ export function LibraryItem({ categoryItem, isUserPlayList }) {
     <div>
       <div
         className="card card-shadow card-vertical"
-        style={{ maxWidth: "15rem" }}
         onClick={() => {
           navigate(`/playlist/${categoryItem.id}`);
         }}

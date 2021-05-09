@@ -6,9 +6,6 @@ import { Category } from './Components/Category/Category';
 import { VideoListPage } from './Components/VideoList/VideoListPage';
 import {Library} from './Components/Library/Library';
 import {categoryPlayListData} from "./data";
-import axios from "axios";
-import {useEffect} from "react";
-import { CategoryItem } from './Components/Category/CategoryItem';
 
 function App() {
   const {state,dispatch}=useDataContext();

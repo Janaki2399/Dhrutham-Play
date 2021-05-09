@@ -4,7 +4,7 @@ export function LikeButton({ videoId }) {
 
   const { state,dispatch } = useDataContext();
 
-  function getVideoObject(id){
+  const getVideoObject = (id) => {
     return state.allVideos.find((item)=>item.id===id);
   }
   return (

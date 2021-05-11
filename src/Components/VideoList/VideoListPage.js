@@ -3,41 +3,55 @@ import { LikeButton } from "../LikeButton";
 import { SaveButton } from "../SaveButton";
 import { Modal } from "./Modal";
 import { useParams } from "react-router";
-import { useState } from "react";
 import { SideBarNav } from "./SidebarNav";
 import { ViewVideo } from "./ViewVideo";
-
-export function VideoListPage({ list }) {
-  const { id } = useParams();
-
+import {useState,useEffect} from "react";
+import axios from "axios";
+export function VideoListPage({ listType }) {
+  const { id }=useParams();
+  const { videoId } = useParams();
+ 
   const { state } = useDataContext();
   const [modal, setModal] = useState(false);
 
-  const getSelectedCategoryVideos = (id, data) =>
-    data.find((item) => item.id === id);
+  // const getSelectedCategoryVideos = (id, data) =>
+  //   data.find((item) => item.id === id);
 
-  const selectedCategoryObject = getSelectedCategoryVideos(id, list);
-  const [videoId, setVideoId] = useState(
-    selectedCategoryObject.list.length > 0
-      ? selectedCategoryObject.list[0].videoId
-      : ""
-  );
-
+  // const selectedCategoryObject = getSelectedCategoryVideos(id, list);
+  const [selectedCategory,setSelectedCategory]=useState({});
+  const [viewVideoId, setViewVideoId] = useState(videoId);
+  const [videoObject,setVideoObject]=useState({});
+  useEffect(() => {
+    (async function () {
+      try {
+        const { data, status } = await axios.get(
+          `https://dhrutham-play-backend.janaki23.repl.co/${listType}/${id}/${viewVideoId}`
+        );
+          
+        if (status === 200) {
+          setSelectedCategory(data[listType]);
+          setVideoObject(data.video);
+        }
+      } catch (error) {
+        alert(error);
+      }
+    })();
+  }, [viewVideoId]);
   return (
     <div>
       {modal && <Modal videoId={videoId} setModal={setModal} />}
       <div className="grid">
         <main>
-          {videoId !== "" && (
-            <ViewVideo videoId={videoId} setModal={setModal} />
+          {viewVideoId !== "" && (
+            <ViewVideo videoObject={videoObject} setModal={setModal} setSelectedCategory={setSelectedCategory}/>
           )}
         </main>
-        <SideBarNav
-          playlistId={selectedCategoryObject.id}
-          list={selectedCategoryObject.list}
-          setVideoId={setVideoId}
-          isUserPlayList={list === state.userLibrary ? true : false}
-        />
+         {selectedCategory.list && selectedCategory.list.length >0 &&<SideBarNav
+          playlistId={selectedCategory._id}
+          list={selectedCategory.list}
+          setVideoId={setViewVideoId}
+          isUserPlayList={listType }
+        />}
       </div>
     </div>
   );

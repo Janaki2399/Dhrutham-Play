@@ -1,8 +1,10 @@
 import { LikeButton } from "../LikeButton";
 import { SaveButton } from "../SaveButton";
 import { useDataContext } from "../../contexts/data-context";
-export function ViewVideo({ videoId, setModal }) {
+
+export function ViewVideo({ videoObject, setModal ,setSelectedCategory}) {
   const { state } = useDataContext();
+ 
   const getVideoObject = (id) => {
     return state.allVideos.find((item) => item.id === id);
   }
@@ -10,17 +12,17 @@ export function ViewVideo({ videoId, setModal }) {
     <div>
       <div className="video-wrapper">
         <iframe
-          src={`https://www.youtube.com/embed/${getVideoObject(videoId).id}`}
+          src={`https://www.youtube.com/embed/${videoObject.youtubeId}`}
           title="song"
         ></iframe>
       </div>
       <div className="card-horizontal center-align videoElements padding-top">
         <div className="font-size-4 font-bold-1">
-          {getVideoObject(videoId).name}
+          {videoObject.name}
         </div>
         <div className="nav-list">
-          <LikeButton videoId={videoId} />
-          <SaveButton videoId={videoId} setModal={setModal} />
+          <LikeButton videoId={videoObject._id} setSelectedCategory={setSelectedCategory}/>
+          <SaveButton videoId={videoObject._id} setModal={setModal} />
         </div>
       </div>
     </div>

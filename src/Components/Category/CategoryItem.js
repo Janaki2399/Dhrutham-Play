@@ -2,18 +2,18 @@ import { useNavigate } from "react-router-dom";
 
 export function CategoryItem({ categoryItem, isUserPlayList }) {
   const navigate = useNavigate();
-
+  console.log(categoryItem._id ,categoryItem.list[0]._id);
   return (
     <div
       className="card card-shadow card-vertical"
       onClick={() => {
-        navigate(`/category/${categoryItem.id}`);
+        navigate(`/categories/${categoryItem._id}/${categoryItem.list[0]._id}`);
       }}
     >
       <div>
         <img
           className="card-img"
-          src={`https://img.youtube.com/vi/${categoryItem.list[0].videoId}/0.jpg`}
+          src={categoryItem.thumbnail}
           alt="video-img"
         />
       </div>

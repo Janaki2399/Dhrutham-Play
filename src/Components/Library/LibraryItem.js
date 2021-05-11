@@ -22,7 +22,8 @@ export function LibraryItem({ categoryItem, isUserPlayList }) {
       <div
         className="card card-shadow card-vertical"
         onClick={() => {
-          navigate(`/playlist/${categoryItem.id}`);
+          if(categoryItem.list.length>0){
+          navigate(`/library/${categoryItem._id}/${categoryItem.list[0]._id}`)}
         }}
       >
         <div className="relative-position">

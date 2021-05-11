@@ -1,9 +1,9 @@
 import { useDataContext } from "../../contexts/data-context";
 import { RemoveButton } from "../RemoveButton";
-
+import { useNavigate } from "react-router-dom";
 export function SideBarNav({ playlistId, list, setVideoId, isUserPlayList }) {
   const { state, dispatch } = useDataContext();
-
+  const navigate = useNavigate();
   const getVideoObject = (id) =>{
     return state.allVideos.find((item) => item.id === id);
   }
@@ -24,22 +24,23 @@ export function SideBarNav({ playlistId, list, setVideoId, isUserPlayList }) {
         <div
           className="flex-horizontal "
           onClick={() => {
-            setVideoId(item.videoId);
+            setVideoId(item._id);
+            navigate(`/${isUserPlayList}/${playlistId}/${item._id}`);
           }}
         >
           <div className="margin-right">
             <img
-              src={`https://img.youtube.com/vi/${item.videoId}/0.jpg`}
+              src={`https://img.youtube.com/vi/${item.youtubeId}/0.jpg`}
               alt="img"
               width="120"
             />
           </div>
           <div className="flex-horizontal space-between center-align">
             <div className="font-bold-1 font-size-5">
-              {getVideoObject(item.videoId).name}
+              {item.name}
             </div>
-            {isUserPlayList && (
-              <RemoveButton id={item.videoId} removeItem={removeItem} />
+            {isUserPlayList =="library"&& (
+              <RemoveButton id={item._id} removeItem={removeItem} />
             )}
           </div>
         </div>

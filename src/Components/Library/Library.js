@@ -9,7 +9,7 @@ export function Library() {
         {state.userLibrary.map((item, index) => {
           return (
             <LibraryItem
-              key={item.id}
+              key={item._id}
               categoryItem={item}
               isUserPlayList={index !== 0 }
             />

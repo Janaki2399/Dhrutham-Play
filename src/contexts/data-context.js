@@ -8,12 +8,7 @@ const DataContext = createContext();
 export function DataProvider({ children }) {
   const [state, dispatch] = useReducer(reducerFunction, {
     allVideos,
-    userLibrary:[{
-      id:v4(),
-      name:"liked videos",
-      list:[]
-    }
-    ],
+    userLibrary:[],
   });
 
   async function addToListAndServer({ url, list, postItem, dispatchType }) {

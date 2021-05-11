@@ -2,6 +2,12 @@ import { videoData } from "../data";
 
 export function reducerFunction(state, action) {
     switch (action.type) {
+      case "SET_LIBRARY":
+        return {
+          ...state,
+          userLibrary:action.payload
+        }
+
       case "ADD_ALL_VIDEOS":
         return {
           ...state,
@@ -16,6 +22,12 @@ export function reducerFunction(state, action) {
           ...state,
           likedVideos: action.payload
         };
+      
+      // case "UPDATE_LIKED_VIDEOS":
+      //   return {
+      //     ...state,
+      //     likedVideos: action.payload
+      //   };
         case "APPEND_ITEM_TO_LIKED_VIDEOS":
           return {
             ...state,
@@ -23,16 +35,8 @@ export function reducerFunction(state, action) {
               index===0?
                  {
                   ...item,
-                  list:item.list.concat(action.payload)
-                 }:item),
-            allVideos: state.allVideos.map((videoItem) =>
-              videoItem.id === action.payload.videoId
-                ? {
-                    ...videoItem,
-                    isLiked: true
-                  }
-                : videoItem
-            )
+                  list:action.payload.list
+                 }:item)
           };
       
           case "REMOVE_FROM_LIKED_VIDEOS":
@@ -42,17 +46,17 @@ export function reducerFunction(state, action) {
               index===0?
                  {
                   ...item,
-                  list:item.list.filter((item)=>item.videoId !== action.payload.videoId)
+                  list:action.payload.list
                  }:item),
               
-              allVideos: state.allVideos.map((videoItem) =>
-                videoItem.id === action.payload.videoId
-                  ? {
-                      ...videoItem,
-                      isLiked: false
-                    }
-                  : videoItem
-              )
+              // allVideos: state.allVideos.map((videoItem) =>
+              //   videoItem.id === action.payload.videoId
+              //     ? {
+              //         ...videoItem,
+              //         isLiked: false
+              //       }
+              //     : videoItem
+              // )
             };
       
       case "CREATE_PLAYLIST":

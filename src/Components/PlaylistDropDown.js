@@ -11,7 +11,7 @@ export function PlaylistDropDown({ videoId, setModal }) {
   const [checkbox, setCheckBox] = useState(getUserPlayList());
 
   function checkIfItemExistsInList(playlist, videoId) {
-    return playlist.find((item) => item.videoId === videoId) !== undefined;
+    return playlist.find((item) => item._id === videoId) !== undefined;
   }
 
   function getUserPlayList() {
@@ -19,13 +19,13 @@ export function PlaylistDropDown({ videoId, setModal }) {
     return filteredList.map((item, index) => {
       if (checkIfItemExistsInList(item.list, videoId)) {
         return {
-          id: item.id,
+          id: item._id,
           name: item.name,
           checked: true,
         };
       }
       return {
-        id: item.id,
+        id: item._id,
         name: item.name,
         checked: false,
       };

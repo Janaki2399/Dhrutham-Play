@@ -11,14 +11,14 @@ export function VideoListPage({ listType }) {
   const { id }=useParams();
   const { videoId } = useParams();
  
-  const { state } = useDataContext();
+  const { state,dispatch } = useDataContext();
   const [modal, setModal] = useState(false);
 
   // const getSelectedCategoryVideos = (id, data) =>
   //   data.find((item) => item.id === id);
 
   // const selectedCategoryObject = getSelectedCategoryVideos(id, list);
-  const [selectedCategory,setSelectedCategory]=useState({});
+  // const [selectedCategory,setSelectedCategory]=useState({});
   const [viewVideoId, setViewVideoId] = useState(videoId);
   const [videoObject,setVideoObject]=useState({});
   useEffect(() => {
@@ -29,7 +29,8 @@ export function VideoListPage({ listType }) {
         );
           
         if (status === 200) {
-          setSelectedCategory(data[listType]);
+          dispatch({type:"SET_SELECTED_LIST",payload:data[listType]});
+          // setSelectedCategory(data[listType]);
           setVideoObject(data.video);
         }
       } catch (error) {
@@ -43,12 +44,13 @@ export function VideoListPage({ listType }) {
       <div className="grid">
         <main>
           {viewVideoId !== "" && (
-            <ViewVideo videoObject={videoObject} setModal={setModal} setSelectedCategory={setSelectedCategory}  playlistId={selectedCategory._id}/>
+            <ViewVideo videoObject={videoObject} setModal={setModal}/>
           )}
         </main>
-         {selectedCategory.list && selectedCategory.list.length >0 &&<SideBarNav
-          playlistId={selectedCategory._id}
-          list={selectedCategory.list}
+         {state.selectedCategory.list && state.selectedCategory.list.length >0 &&<SideBarNav
+          // playlistId={state.selectedCategory._id}
+          // list={state.selectedCategory.list}
+          // setSelectedCategory={state.setSelectedCategory}
           setVideoId={setViewVideoId}
           isUserPlayList={listType }
         />}

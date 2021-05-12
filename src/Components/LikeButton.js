@@ -1,6 +1,6 @@
 import { useDataContext } from "../contexts/data-context";
 import axios from "axios";
-export function LikeButton({ videoId ,setSelectedCategory ,playlistId}) {
+export function LikeButton({ videoId }) {
 
   const { state,dispatch } = useDataContext();
 //  console.log({state:state.userLibrary[0]});
@@ -9,13 +9,15 @@ export function LikeButton({ videoId ,setSelectedCategory ,playlistId}) {
   // }
 
   const isVideoLiked = () => {
+    if(state.userLibrary[0]){
     return state.userLibrary[0].list.find((item)=>item._id===videoId)!==undefined;
+    }
   }
 
   const addToListAndServer = async () => {
     try {
       // showToast(`Adding to ${toastItem}`);
-      const { data, status } = await axios.post(`https://dhrutham-play-backend.janaki23.repl.co/library/609664ad1b1f83069cdd0639`, {
+      const { data, status } = await axios.post(`https://dhrutham-play-backend.janaki23.repl.co/library/${state.userLibrary[0]._id}`, {
         "_id":videoId
       });
       if (status === 200) {
@@ -38,12 +40,12 @@ export function LikeButton({ videoId ,setSelectedCategory ,playlistId}) {
   }
   const removeFromListAndServer = async () => {
     try {
-      const { data,status } = await axios.delete(`https://dhrutham-play-backend.janaki23.repl.co/library/609664ad1b1f83069cdd0639/${videoId}`);
+      const { data,status } = await axios.delete(`https://dhrutham-play-backend.janaki23.repl.co/library/${state.selectedCategory._id}/${videoId}`);
      
       if (status === 200) {
         dispatch({ type: "REMOVE_FROM_LIKED_VIDEOS", payload: data.updated });
-        if(playlistId==="609664ad1b1f83069cdd0639"){
-        setSelectedCategory((prev)=>({...prev,list:prev.list.filter((item)=>item._id!==videoId)}));
+        if(state.selectedCategory._id===state.userLibrary[0]._id){
+          dispatch({type:"REMOVE_ITEM_FROM_SELECTED_PLAYLIST",payload:videoId})
         }
         // if (list === "wishlist") {
         //   dispatch({ type: "DECREMENT_WISHLIST_COUNT" });

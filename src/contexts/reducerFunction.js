@@ -7,6 +7,18 @@ export function reducerFunction(state, action) {
           ...state,
           userLibrary:action.payload
         }
+      
+      case "SET_SELECTED_LIST":
+        return {
+          ...state,
+          selectedCategory:action.payload
+        }
+      
+      case "REMOVE_ITEM_FROM_SELECTED_PLAYLIST":
+        return {
+          ...state,
+          selectedCategory:{...state.selectedCategory,list:state.selectedCategory.list.filter((item)=>item._id !==action.payload)}
+        }
 
       case "ADD_ALL_VIDEOS":
         return {
@@ -69,10 +81,10 @@ export function reducerFunction(state, action) {
         return {
           ...state,
           userLibrary: state.userLibrary.map((playlistItem) =>
-            playlistItem.id === action.payload.playlistId
+            playlistItem._id === action.payload.playlistId
               ? {
                   ...playlistItem,
-                  list: playlistItem.list.concat({videoId:action.payload.videoId})
+                  list: action.payload.list
                 }
               : playlistItem
           )
@@ -82,12 +94,10 @@ export function reducerFunction(state, action) {
         return {
           ...state,
           userLibrary: state.userLibrary.map((playlistItem) =>
-            playlistItem.id === action.payload.playlistId
+            playlistItem._id === action.payload.playlistId
               ? {
                   ...playlistItem,
-                  list: playlistItem.list.filter(
-                    (videoItem) => videoItem.videoId !== action.payload.videoId
-                  )
+                  list:action.payload.list
                 }
               : playlistItem
           )
@@ -96,7 +106,7 @@ export function reducerFunction(state, action) {
       case "DELETE_PLAYLIST":
         return {
           ...state,
-          userLibrary:state.userLibrary.filter((playlistItem)=>playlistItem.id!==action.payload.playlistId)
+          userLibrary:state.userLibrary.filter((playlistItem)=>playlistItem._id!==action.payload.playlistId)
         }
       case "SET_PLAYLIST_ITEM":
         return {

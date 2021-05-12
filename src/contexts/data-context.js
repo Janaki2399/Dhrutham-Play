@@ -7,7 +7,7 @@ const DataContext = createContext();
 
 export function DataProvider({ children }) {
   const [state, dispatch] = useReducer(reducerFunction, {
-    allVideos,
+    selectedCategory:{},
     userLibrary:[],
   });
 

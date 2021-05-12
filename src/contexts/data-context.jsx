@@ -2,7 +2,6 @@ import { createContext, useContext, useReducer } from "react";
 import { reducerFunction } from "./reducerFunction";
 import {v4} from "uuid";
 import axios from "axios";
-import {allVideos} from "../data";
 const DataContext = createContext();
 
 export function DataProvider({ children }) {

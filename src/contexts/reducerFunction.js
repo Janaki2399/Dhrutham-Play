@@ -1,4 +1,3 @@
-import { videoData } from "../data";
 
 export function reducerFunction(state, action) {
     switch (action.type) {

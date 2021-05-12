@@ -1,10 +1,8 @@
-import { useDataContext } from "../../contexts/data-context";
-import { LikeButton } from "../LikeButton";
-import { SaveButton } from "../SaveButton";
-import { Modal } from "./Modal";
+import { useDataContext } from "../contexts/data-context";
+import { Modal } from "../Components/VideoList//Modal";
 import { useParams } from "react-router";
-import { SideBarNav } from "./SidebarNav";
-import { ViewVideo } from "./ViewVideo";
+import { SideBarNav } from "../Components/VideoList/SidebarNav";
+import { ViewVideo } from "../Components/VideoList/ViewVideo";
 import {useState,useEffect} from "react";
 import axios from "axios";
 export function VideoListPage({ listType }) {

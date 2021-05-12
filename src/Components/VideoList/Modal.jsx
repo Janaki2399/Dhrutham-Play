@@ -1,5 +1,4 @@
 import { PlaylistDropDown } from "../PlaylistDropDown";
-import { videoData } from "../../data";
 
 export function Modal({videoId,setModal}){
     return(

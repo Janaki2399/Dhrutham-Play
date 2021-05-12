@@ -1,5 +1,5 @@
-import { useDataContext } from "../../contexts/data-context";
-import { LibraryItem } from "./LibraryItem";
+import { useDataContext } from "../contexts/data-context";
+import { LibraryItem } from "../Components/Library/LibraryItem";
 export function Library() {
   const { state } = useDataContext();
 

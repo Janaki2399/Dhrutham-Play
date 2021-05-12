@@ -1,6 +1,5 @@
-import { useDataContext } from "../../contexts/data-context";
-import { CategoryItem } from "./CategoryItem";
-import {categoryPlaylistData, categoryPlayListData} from "../../data";
+import { useDataContext } from "../contexts/data-context";
+import { CategoryItem } from "../Components/Category/CategoryItem";
 import {useState,useEffect} from "react";
 import axios from "axios";
 

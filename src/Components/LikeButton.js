@@ -1,9 +1,9 @@
 import { useDataContext } from "../contexts/data-context";
 import axios from "axios";
-export function LikeButton({ videoId ,setSelectedCategory}) {
+export function LikeButton({ videoId ,setSelectedCategory ,playlistId}) {
 
   const { state,dispatch } = useDataContext();
- console.log({state:state.userLibrary[0]});
+//  console.log({state:state.userLibrary[0]});
   // const getVideoObject = (id) => {
   //   return state.allVideos.find((item)=>item.id===id);
   // }
@@ -39,10 +39,12 @@ export function LikeButton({ videoId ,setSelectedCategory}) {
   const removeFromListAndServer = async () => {
     try {
       const { data,status } = await axios.delete(`https://dhrutham-play-backend.janaki23.repl.co/library/609664ad1b1f83069cdd0639/${videoId}`);
-      console.log({data});
+     
       if (status === 200) {
         dispatch({ type: "REMOVE_FROM_LIKED_VIDEOS", payload: data.updated });
+        if(playlistId==="609664ad1b1f83069cdd0639"){
         setSelectedCategory((prev)=>({...prev,list:prev.list.filter((item)=>item._id!==videoId)}));
+        }
         // if (list === "wishlist") {
         //   dispatch({ type: "DECREMENT_WISHLIST_COUNT" });
         // } else if (list === "cart") {

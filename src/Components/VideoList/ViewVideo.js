@@ -2,7 +2,7 @@ import { LikeButton } from "../LikeButton";
 import { SaveButton } from "../SaveButton";
 import { useDataContext } from "../../contexts/data-context";
 
-export function ViewVideo({ videoObject, setModal ,setSelectedCategory}) {
+export function ViewVideo({ videoObject, setModal ,setSelectedCategory,playlistId}) {
   const { state } = useDataContext();
  
   const getVideoObject = (id) => {
@@ -21,7 +21,7 @@ export function ViewVideo({ videoObject, setModal ,setSelectedCategory}) {
           {videoObject.name}
         </div>
         <div className="nav-list">
-          <LikeButton videoId={videoObject._id} setSelectedCategory={setSelectedCategory}/>
+          <LikeButton videoId={videoObject._id} setSelectedCategory={setSelectedCategory} playlistId={playlistId}/>
           <SaveButton videoId={videoObject._id} setModal={setModal} />
         </div>
       </div>

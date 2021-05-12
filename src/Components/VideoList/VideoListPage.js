@@ -43,7 +43,7 @@ export function VideoListPage({ listType }) {
       <div className="grid">
         <main>
           {viewVideoId !== "" && (
-            <ViewVideo videoObject={videoObject} setModal={setModal} setSelectedCategory={setSelectedCategory}/>
+            <ViewVideo videoObject={videoObject} setModal={setModal} setSelectedCategory={setSelectedCategory}  playlistId={selectedCategory._id}/>
           )}
         </main>
          {selectedCategory.list && selectedCategory.list.length >0 &&<SideBarNav

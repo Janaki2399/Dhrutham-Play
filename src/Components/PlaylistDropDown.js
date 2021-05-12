@@ -2,6 +2,7 @@ import { useState } from "react";
 import { v4 } from "uuid";
 import { useDataContext } from "../contexts/data-context";
 import { PlaylistCheckBox } from "./PlaylistCheckBox";
+import axios from "axios";
 
 export function PlaylistDropDown({ videoId, setModal }) {
 
@@ -30,19 +31,41 @@ export function PlaylistDropDown({ videoId, setModal }) {
       };
     });
   }
+  const addToListAndServer = async (playlistObject) => {
+    try {
+      // showToast(`Adding to ${toastItem}`);
+      const { data, status } = await axios.post(`https://dhrutham-play-backend.janaki23.repl.co/library`,playlistObject );
+      if (status === 200) {
+        dispatch({ type: "CREATE_PLAYLIST", payload: data.libraryItem });
+        // if (list === "wishlistItem") {
+        //   dispatch({ type: "INCREMENT_WISHLIST_COUNT" });
+        // } else if (list === "cartItem") {
+        //   dispatch({ type: "INCREMENT_CART_COUNT" });
+        // }
+        // showToast(`Added to ${toastItem}`);
+        // hideToast();
+      }
+    } catch (error) {
+      // hideToast();
+      // if (error.response.status !== 409) {
+      //   // alert(error);
+      // }
+      alert(error);
+    }
+  }
 
-  function createPlaylist(){
+  async function createPlaylist(){
     setInput("");
     const playlistObject = {
-      id: v4(),
-      name: input,
-      list: [
+      "name": input,
+      "list": [
         {
-          videoId,
+          "_id":videoId,
         },
       ],
     };
-    dispatch({ type: "CREATE_PLAYLIST", payload: playlistObject });
+    addToListAndServer(playlistObject);
+    // dispatch({ type: "CREATE_PLAYLIST", payload: playlistObject });
     setModal(false);
   }
   return (

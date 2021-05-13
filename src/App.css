@@ -80,3 +80,10 @@ nav{
 .color-blue{
   color: #1E40AF;
 }
+
+.center-align-ver-hor{
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+}

@@ -1,6 +1,8 @@
 import './App.css';
 import {Routes,Route} from 'react-router-dom';
-import {Navbar } from './Components/Navbar'
+import {Navbar } from './Components/Navbar';
+import {PrivateRoute} from "./PrivateRoute";
+import {Login} from "./pages/Login";
 import { useDataContext } from './contexts/data-context';
 import { Category } from './pages/Category';
 import { VideoListPage } from './pages/VideoListPage';
@@ -33,11 +35,12 @@ function App() {
      <Navbar />
      
      <Routes >
+       <Route path='/login' element={<Login/>}/>
        <Route path='/' element={<Category/>}/>
-       <Route path='/library' element={<Library/>}/>
+       <PrivateRoute path='/library' element={<Library/>}/>
        {/* <Route path='/likedVideos' element={<likedVideos/>}/> */}
        <Route path='/categories/:id/:videoId' element={<VideoListPage listType={"categories"}/>}/>
-       <Route path='/library/:id/:videoId' element={<VideoListPage listType={"library"}/>}/>
+       <PrivateRoute path='/library/:id/:videoId' element={<VideoListPage listType={"library"}/>}/>
      </Routes>
     
   </div>

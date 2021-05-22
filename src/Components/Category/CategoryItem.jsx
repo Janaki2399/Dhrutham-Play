@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 
-export function CategoryItem({ categoryItem, isUserPlayList }) {
+export function CategoryItem({ categoryItem }) {
   const navigate = useNavigate();
-  console.log(categoryItem._id ,categoryItem.list[0]._id);
+
   return (
     <div
       className="card card-shadow card-vertical"

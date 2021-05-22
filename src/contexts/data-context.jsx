@@ -5,8 +5,8 @@ const DataContext = createContext();
 
 export function DataProvider({ children }) {
   const [state, dispatch] = useReducer(reducerFunction, {
-    selectedCategory:{},
-    userLibrary:[],
+    selectedCategory: {},
+    userLibrary: [],
   });
 
   async function addToListAndServer({ url, list, postItem, dispatchType }) {
@@ -36,7 +36,7 @@ export function DataProvider({ children }) {
         state,
         dispatch,
         addToListAndServer,
-        removeFromListAndServer
+        removeFromListAndServer,
       }}
     >
       {children}

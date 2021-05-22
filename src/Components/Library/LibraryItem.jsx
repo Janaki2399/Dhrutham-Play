@@ -11,42 +11,32 @@ export function LibraryItem({ categoryItem, isUserPlayList }) {
 
   const removeFromListAndServer = async (id) => {
     try {
-      const { data,status } = await axios.delete(`https://dhrutham-play-backend.janaki23.repl.co/library/${id}`);
-     
+      const { data, status } = await axios.delete(
+        `https://dhrutham-play-backend.herokuapp.com/library/${id}`
+      );
+
       if (status === 200) {
-        dispatch({ type: "DELETE_PLAYLIST", payload: {playlistId:id} });
-     
-        // if (list === "wishlist") {
-        //   dispatch({ type: "DECREMENT_WISHLIST_COUNT" });
-        // } else if (list === "cart") {
-        //   dispatch({ type: "DECREMENT_CART_COUNT" });
-        // }
-        // showToast(toastMessage);
-        // hideToast();
+        dispatch({ type: "DELETE_PLAYLIST", payload: { playlistId: id } });
       }
     } catch (error) {
       alert(error);
-      // hideToast();
     }
-  }
+  };
 
   const removeItem = (event, id) => {
     event.stopPropagation();
-    // dispatch({
-    //   type: "DELETE_PLAYLIST",
-    //   payload: {
-    //     playlistId: id,
-    //   },
-    // });
     removeFromListAndServer(id);
-  }
+  };
   return (
     <div>
       <div
         className="card card-shadow card-vertical"
         onClick={() => {
-          if(categoryItem.list.length>0){
-          navigate(`/library/${categoryItem._id}/${categoryItem.list[0]._id}`)}
+          if (categoryItem.list.length > 0) {
+            navigate(
+              `/library/${categoryItem._id}/${categoryItem.list[0]._id}`
+            );
+          }
         }}
       >
         <div className="relative-position">

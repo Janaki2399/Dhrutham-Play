@@ -4,16 +4,23 @@ import { LibraryItemImage } from "./LibraryItemImage";
 import { useDataContext } from "../../contexts/data-context";
 import { LibraryItemOverlay } from "./LibraryItemOverlay";
 import axios from "axios";
+import { useAuth } from "../../contexts/auth-context";
 
 export function LibraryItem({ categoryItem, isUserPlayList }) {
   console.log({ categoryItem });
   const navigate = useNavigate();
   const { dispatch } = useDataContext();
+  const { token } = useAuth();
 
   const removeFromListAndServer = async (id) => {
     try {
       const { data, status } = await axios.delete(
-        `https://dhrutham-play-backend.herokuapp.com/library/${id}`
+        `https://dhrutham-play-backend.herokuapp.com/playlist/${id}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
       );
 
       if (status === 200) {

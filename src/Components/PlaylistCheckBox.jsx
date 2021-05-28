@@ -1,7 +1,9 @@
 import { useDataContext } from "../contexts/data-context";
 import axios from "axios";
+import { useAuth } from "../contexts/auth-context";
 export function PlaylistCheckBox({ item, index, videoId, setCheckBox }) {
   const { dispatch, state } = useDataContext();
+  const { token } = useAuth();
 
   const handleToggle = (i) => {
     setCheckBox((prev) =>
@@ -15,15 +17,20 @@ export function PlaylistCheckBox({ item, index, videoId, setCheckBox }) {
     try {
       // showToast(`Adding to ${toastItem}`);
       const { data, status } = await axios.post(
-        `https://dhrutham-play-backend.herokuapp.com/library/${item.id}`,
+        `https://dhrutham-play-backend.herokuapp.com/playlist/${item.id}`,
         {
           _id: videoId,
+        },
+        {
+          headers: {
+            authorization: token,
+          },
         }
       );
       if (status === 200) {
         dispatch({
           type: "APPEND_TO_PLAYLIST",
-          payload: { playlistId: item.id, list: data.updated.list },
+          payload: { playlistId: item.id, videoId: videoId },
         });
       }
     } catch (error) {
@@ -33,13 +40,18 @@ export function PlaylistCheckBox({ item, index, videoId, setCheckBox }) {
   const removeFromListAndServer = async () => {
     try {
       const { data, status } = await axios.delete(
-        `https://dhrutham-play-backend.herokuapp.com/library/${item.id}/${videoId}`
+        `https://dhrutham-play-backend.herokuapp.com/playlist/${item.id}/${videoId}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
       );
 
       if (status === 200) {
         dispatch({
           type: "REMOVE_ITEM_FROM_PLAYLIST",
-          payload: { playlistId: item.id, list: data.updated.list },
+          payload: { playlistId: item.id, videoId: videoId },
         });
         if (state.selectedCategory._id === item.id) {
           dispatch({

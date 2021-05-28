@@ -1,14 +1,17 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/auth-context";
 import { useNavigate } from "react-router-dom";
+import { useDataContext } from "../contexts/data-context";
 
 export function Navbar() {
   const { token, setToken } = useAuth();
   const navigate = useNavigate();
+  const { state, dispatch } = useDataContext();
 
   const logout = () => {
     setToken(null);
     localStorage?.removeItem("login");
+    dispatch({ type: "RESET" });
     // wishlistDispatch({ type: "RESET" });
     // cartDispatch({ type: "RESET" });
     navigate("/");

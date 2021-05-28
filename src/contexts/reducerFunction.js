@@ -40,27 +40,35 @@ export function reducerFunction(state, action) {
     case "APPEND_ITEM_TO_LIKED_VIDEOS":
       return {
         ...state,
-        userLibrary: state.userLibrary.map((item, index) =>
-          index === 0
-            ? {
-                ...item,
-                list: action.payload.list,
-              }
-            : item
-        ),
+        userLibrary: {
+          ...state.userLibrary,
+          list: state.userLibrary.list.map((item, index) =>
+            index === 0
+              ? {
+                  ...item,
+                  list: item.list.concat(action.payload),
+                }
+              : item
+          ),
+        },
       };
 
     case "REMOVE_FROM_LIKED_VIDEOS":
       return {
         ...state,
-        userLibrary: state.userLibrary.map((item, index) =>
-          index === 0
-            ? {
-                ...item,
-                list: action.payload.list,
-              }
-            : item
-        ),
+        userLibrary: {
+          ...state.userLibrary,
+          list: state.userLibrary.list.map((item, index) =>
+            index === 0
+              ? {
+                  ...item,
+                  list: item.list.filter(
+                    (item) => item._id !== action.payload._id
+                  ),
+                }
+              : item
+          ),
+        },
       };
 
     case "CREATE_PLAYLIST":
@@ -107,12 +115,6 @@ export function reducerFunction(state, action) {
         ...state,
         showComponent: "playlist",
         currentPlayListItem: action.payload.id,
-      };
-    case "SHOW_COMPONENT":
-      return {
-        ...state,
-        showComponent: action.payload,
-        currentPlayListItem: "",
       };
 
     default:

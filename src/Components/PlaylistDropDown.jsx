@@ -1,12 +1,13 @@
 import { useState } from "react";
-import { v4 } from "uuid";
 import { useDataContext } from "../contexts/data-context";
 import { PlaylistCheckBox } from "./PlaylistCheckBox";
+import { useAuth } from "../contexts/auth-context";
 import axios from "axios";
 
 export function PlaylistDropDown({ videoId, setModal }) {
   const [input, setInput] = useState("");
   const { dispatch, state } = useDataContext();
+  const { token } = useAuth();
   const [checkbox, setCheckBox] = useState(getUserPlayList());
 
   function checkIfItemExistsInList(playlist, videoId) {
@@ -14,7 +15,9 @@ export function PlaylistDropDown({ videoId, setModal }) {
   }
 
   function getUserPlayList() {
-    const filteredList = state.userLibrary.filter((_, index) => index !== 0);
+    const filteredList = state.userLibrary.list.filter(
+      (_, index) => index !== 0
+    );
     return filteredList.map((item, index) => {
       if (checkIfItemExistsInList(item.list, videoId)) {
         return {
@@ -35,10 +38,15 @@ export function PlaylistDropDown({ videoId, setModal }) {
       // showToast(`Adding to ${toastItem}`);
       const { data, status } = await axios.post(
         `https://dhrutham-play-backend.herokuapp.com/library`,
-        playlistObject
+        playlistObject,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
       );
       if (status === 200) {
-        dispatch({ type: "CREATE_PLAYLIST", payload: data.libraryItem });
+        dispatch({ type: "SET_LIBRARY", payload: data.library });
       }
     } catch (error) {
       alert(error);

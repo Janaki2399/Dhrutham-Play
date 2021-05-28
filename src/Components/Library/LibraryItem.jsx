@@ -6,6 +6,7 @@ import { LibraryItemOverlay } from "./LibraryItemOverlay";
 import axios from "axios";
 
 export function LibraryItem({ categoryItem, isUserPlayList }) {
+  console.log({ categoryItem });
   const navigate = useNavigate();
   const { dispatch } = useDataContext();
 
@@ -32,9 +33,9 @@ export function LibraryItem({ categoryItem, isUserPlayList }) {
       <div
         className="card card-shadow card-vertical"
         onClick={() => {
-          if (categoryItem.list.length > 0) {
+          if (categoryItem.list?.length > 0) {
             navigate(
-              `/library/${categoryItem._id}/${categoryItem.list[0]._id}`
+              `/playlist/${categoryItem._id}/${categoryItem.list[0]._id}`
             );
           }
         }}

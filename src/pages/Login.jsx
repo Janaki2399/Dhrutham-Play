@@ -3,13 +3,18 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 export function Login() {
-  const { validateLogin } = useAuth();
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const { state } = useLocation();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
   return (
-    <div
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        login(email, password, state);
+      }}
       className="center-align-ver-hor border-all gray-border padding-all"
       style={{ width: "90%", maxWidth: "20rem" }}
     >
@@ -35,19 +40,19 @@ export function Login() {
         />
       </div>
       <div>
-        <button
-          className="btn btn-primary-contained full-width"
-          onClick={() => validateLogin(email, password, state)}
-        >
-          Login
+        <button className="btn btn-primary-contained full-width font-size-5">
+          LOGIN
         </button>
       </div>
       <div className="margin-top text-center font-size-6">
         Don't have an account?
-        <span className="text-color-primary font-bold-1 cursor-pointer">
+        <span
+          className="text-color-primary font-bold-1 cursor-pointer"
+          onClick={() => navigate("/signup")}
+        >
           Sign up
         </span>
       </div>
-    </div>
+    </form>
   );
-};
+}

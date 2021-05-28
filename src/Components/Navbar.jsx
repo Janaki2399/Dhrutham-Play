@@ -3,12 +3,17 @@ import { useAuth } from "../contexts/auth-context";
 import { useNavigate } from "react-router-dom";
 
 export function Navbar() {
-  const { isUserLoggedIn, setUserLogIn } = useAuth();
+  const { token, setToken } = useAuth();
   const navigate = useNavigate();
+
   const logout = () => {
-    setUserLogIn(false);
+    setToken(null);
+    localStorage?.removeItem("login");
+    // wishlistDispatch({ type: "RESET" });
+    // cartDispatch({ type: "RESET" });
     navigate("/");
   };
+
   return (
     <div className="nav navbar-height">
       <Link
@@ -18,7 +23,7 @@ export function Navbar() {
         Dhrutham Play
       </Link>
       <div className="nav-list">
-        {!isUserLoggedIn ? (
+        {!token ? (
           <Link to="/login" className=" nav-item anchor-link margin-right">
             {" "}
             Login

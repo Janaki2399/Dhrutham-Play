@@ -5,20 +5,27 @@ import { SideBarNav } from "../Components/VideoList/SidebarNav";
 import { ViewVideo } from "../Components/VideoList/ViewVideo";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useAuth } from "../contexts/auth-context";
 export function VideoListPage({ listType }) {
   const { id } = useParams();
   const { videoId } = useParams();
-
+  const { token } = useAuth();
   const { state, dispatch } = useDataContext();
   const [modal, setModal] = useState(false);
 
   const [viewVideoId, setViewVideoId] = useState(videoId);
   const [videoObject, setVideoObject] = useState({});
+  console.log(state.selectedCategory);
   useEffect(() => {
     (async function () {
       try {
         const { data, status } = await axios.get(
-          `https://dhrutham-play-backend.herokuapp.com/${listType}/${id}/${viewVideoId}`
+          `https://dhrutham-play-backend.herokuapp.com/${listType}/${id}/${viewVideoId}`,
+          {
+            headers: {
+              authorization: token,
+            },
+          }
         );
 
         if (status === 200) {

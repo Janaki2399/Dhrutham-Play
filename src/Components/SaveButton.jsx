@@ -1,9 +1,14 @@
+import { useNavigate } from "react-router";
+import { useAuth } from "../contexts/auth-context";
+
 export function SaveButton({ videoId, setModal }) {
+  const { token } = useAuth();
+  const navigate = useNavigate();
   return (
     <div>
       <button
         onClick={() => {
-          setModal(true);
+          token ? setModal(true) : navigate("/login");
         }}
         className="nav-item btn-box"
       >

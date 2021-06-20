@@ -1,8 +1,11 @@
 import { useDataContext } from "../contexts/data-context";
 import { LibraryItem } from "../Components/Library/LibraryItem";
+import { APIStatus } from "../constants";
+import { useState } from "react";
+
 export function Library() {
   const { state } = useDataContext();
-  console.log(state.userLibrary);
+  const [status, setStatus] = useState(APIStatus.IDLE);
   return (
     <div>
       <div className="grid-col-3">

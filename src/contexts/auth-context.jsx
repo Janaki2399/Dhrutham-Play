@@ -56,13 +56,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // const logout = () => {
-  //   setToken(null);
-  //   localStorage?.removeItem("login");
-  //   wishlistDispatch({ type: "RESET" });
-  //   cartDispatch({ type: "RESET" });
-  //   navigate("/");
-  // };
   return (
     <AuthContext.Provider
       value={{

@@ -1,25 +1,26 @@
 @import url("https://dhrutham-ui.netlify.app/CSS/dhrutham.css");
 
-.grid {
-  display: grid;
-  grid-template-areas: "main nav";
-  grid-template-columns: 68% 25%;
-}
-
-main {
-  margin-left: 1rem;
-  grid-area: main;
-}
-
 nav {
   grid-area: nav;
-  position: fixed;
-  width: 23rem;
+  /* position: fixed; */
+  /* width: 23rem; */
+
   right: 1rem;
   bottom: 0;
   top: 3.1rem;
   overflow-y: scroll;
   word-wrap: break-word;
+  cursor: pointer;
+}
+main {
+  margin-left: 1rem;
+  grid-area: main;
+}
+.grid {
+  display: grid;
+  grid-template-areas: "main nav";
+  grid-template-columns: 68% auto;
+  grid-gap: 40px;
 }
 
 @media (max-width: 1058px) {
@@ -104,4 +105,8 @@ nav {
 }
 .genric-border-color {
   border: 1px solid var(--gray-color);
+}
+.playlist-modal-width {
+  max-width: 20rem;
+  width: 90%;
 }

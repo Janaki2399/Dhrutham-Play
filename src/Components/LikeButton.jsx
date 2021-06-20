@@ -1,11 +1,12 @@
 import { useDataContext } from "../contexts/data-context";
 import axios from "axios";
 import { useAuth } from "../contexts/auth-context";
+import { Navigate, useNavigate } from "react-router";
+
 export function LikeButton({ videoId }) {
   const { state, dispatch } = useDataContext();
   const { token } = useAuth();
-  console.log(state.userLibrary);
-  console.log(videoId);
+  const navigate = useNavigate();
   const isVideoLiked = () => {
     if (state.userLibrary.list && state.userLibrary.list[0]) {
       return (
@@ -69,7 +70,11 @@ export function LikeButton({ videoId }) {
     <div>
       <button
         onClick={() => {
-          !isVideoLiked() ? addToListAndServer() : removeFromListAndServer();
+          token
+            ? !isVideoLiked()
+              ? addToListAndServer()
+              : removeFromListAndServer()
+            : navigate("/login");
         }}
         className="icon-btn btn-box margin-right"
       >

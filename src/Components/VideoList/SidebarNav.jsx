@@ -65,7 +65,7 @@ export function SideBarNav({ setVideoId, isUserPlayList }) {
           </div>
           <div className="flex-horizontal space-between center-align">
             <div className="font-bold-1 font-size-5">{name}</div>
-            {isUserPlayList == "playlist" && ( //change the name of isUserPlaylist
+            {isUserPlayList === "playlist" && (
               <RemoveButton id={_id} removeItem={removeItem} />
             )}
           </div>

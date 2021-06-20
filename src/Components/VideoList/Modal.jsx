@@ -3,7 +3,7 @@ import { PlaylistDropDown } from "../PlaylistDropDown";
 export function Modal({ videoId, setModal }) {
   return (
     <div className="modal-background">
-      <div className="modal-content">
+      <div className="modal-content  playlist-modal-width">
         <div
           className="flex-horizontal border-bottom gray-border center-align space-between"
           style={{ height: "2.5rem" }}

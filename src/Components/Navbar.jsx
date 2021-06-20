@@ -12,8 +12,6 @@ export function Navbar() {
     setToken(null);
     localStorage?.removeItem("login");
     dispatch({ type: "RESET" });
-    // wishlistDispatch({ type: "RESET" });
-    // cartDispatch({ type: "RESET" });
     navigate("/");
   };
 

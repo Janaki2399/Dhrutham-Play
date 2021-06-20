@@ -1,6 +1,5 @@
 import { createContext, useContext, useReducer } from "react";
 import { reducerFunction } from "./reducerFunction";
-import axios from "axios";
 const DataContext = createContext();
 
 export function DataProvider({ children }) {

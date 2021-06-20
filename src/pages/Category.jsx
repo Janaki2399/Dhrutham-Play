@@ -1,25 +1,36 @@
 import { useDataContext } from "../contexts/data-context";
 import { CategoryItem } from "../Components/Category/CategoryItem";
 import { useState, useEffect } from "react";
+import { APIStatus } from "../constants";
 import axios from "axios";
 
 export function Category() {
   const [categories, setCategories] = useState([]);
+  const [status, setStatus] = useState(APIStatus.IDLE);
+  const [error, setError] = useState("");
+
   useEffect(() => {
     (async function () {
       try {
+        setStatus(APIStatus.LOADING);
         const { data, status } = await axios.get(
           `https://dhrutham-play-backend.herokuapp.com/categories`
         );
 
         if (status === 200) {
+          setStatus(APIStatus.SUCCESS);
           setCategories(data.categories);
         }
       } catch (error) {
+        setStatus(APIStatus.ERROR);
         alert(error);
       }
     })();
   }, []);
+
+  if ((status === APIStatus.LOADING) | (status === APIStatus.IDLE)) {
+    return <div className="loader" />;
+  }
   return (
     <div>
       <div>

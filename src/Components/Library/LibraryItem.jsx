@@ -7,7 +7,6 @@ import axios from "axios";
 import { useAuth } from "../../contexts/auth-context";
 
 export function LibraryItem({ categoryItem, isUserPlayList }) {
-  console.log({ categoryItem });
   const navigate = useNavigate();
   const { dispatch } = useDataContext();
   const { token } = useAuth();

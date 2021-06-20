@@ -21,7 +21,7 @@ export function Navbar() {
         className="font-size-3 anchor-link text-color-primary cursor-pointer "
         to="/"
       >
-        Dhrutham Play
+        <div class="font-size-3 text-color-primary">Dhrutham Play</div>
       </Link>
       <div className="nav-list">
         {!token ? (

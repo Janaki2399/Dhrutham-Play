@@ -30,8 +30,11 @@ function App() {
     librariesErrorMessage,
   } = useGetDataAPI();
   useEffect(() => {
+    getCategoriesWithoutVideoDetails();
+  }, []);
+
+  useEffect(() => {
     if (token) {
-      getCategoriesWithoutVideoDetails();
       getLibrariesWithoutVideoDetails();
     }
   }, [token]);

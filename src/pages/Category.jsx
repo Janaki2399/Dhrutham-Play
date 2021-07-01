@@ -10,7 +10,7 @@ export function Category() {
   // const [categories, setCategories] = useState([]);
   const { state } = useDataContext();
   const { categoriesStatus } = useGetDataAPI();
-
+  console.log("laoo");
   if (categoriesStatus === "loading") {
     return <div className="loader center-page-align" />;
   }
@@ -36,9 +36,12 @@ export function Category() {
   // if ((status === API_STATUS.LOADING) | (status === API_STATUS.IDLE)) {
   //   return <div className="loader center-page-align" />;
   // }
+  if (categoriesStatus === "loading") {
+    return <div className="loader center-page-align" />;
+  }
   return (
     <div className="grid-wrapper margin-right">
-      <div className="grid-col-3  ">
+      <div className="grid-col-3 ">
         {state.categoriesWithoutVideoDetails?.map(
           ({ _id, ...categoryItem }) => {
             return (

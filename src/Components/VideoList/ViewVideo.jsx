@@ -16,7 +16,7 @@ export function ViewVideo({
         ></iframe>
       </div>
       <div className="card-horizontal center-align videoElements padding-top">
-        <div className="font-size-4">{videoObject.name}</div>
+        <div className="font-size-4 video-title">{videoObject.name}</div>
         <div className="nav-list">
           <LikeButton
             videoId={videoObject._id}

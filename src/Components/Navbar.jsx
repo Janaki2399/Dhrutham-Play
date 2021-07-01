@@ -6,7 +6,7 @@ import { useDataContext } from "../contexts/data-context";
 export function Navbar() {
   const { token, setToken } = useAuth();
   const navigate = useNavigate();
-  const { state, dispatch } = useDataContext();
+  const { dispatch } = useDataContext();
 
   const logout = () => {
     setToken(null);
@@ -16,29 +16,36 @@ export function Navbar() {
   };
 
   return (
-    <div className="nav navbar-height fixed">
+    <div className="nav navbar-height fixed ">
       <Link
         className="font-size-3 anchor-link text-color-primary cursor-pointer "
         to="/categories"
       >
-        <div class="font-size-3 text-color-primary">Dhrutham Play</div>
+        <div className="font-size-3 text-color-primary margin-left">
+          Dhrutham Play
+        </div>
       </Link>
-      <div className="nav-list">
+      <div className="nav-list margin-right">
         {!token ? (
-          <Link to="/login" className=" nav-item anchor-link margin-right">
+          <button
+            onClick={() => {
+              navigate("/login");
+            }}
+            className=" nav-item anchor-link margin-right border-all curson-pointer padding-small btn-primary-contained white-color"
+          >
             {" "}
             Login
-          </Link>
+          </button>
         ) : (
           <div
             className="nav-item cursor-pointer margin-right"
             onClick={logout}
           >
-            Logout
+            <span className="material-icons-outlined">logout</span>
           </div>
         )}
         <Link className=" nav-item anchor-link" to="/library">
-          My Library
+          <span className="material-icons-outlined ">video_library</span>
         </Link>
       </div>
     </div>

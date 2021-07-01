@@ -23,9 +23,16 @@ export function SideBarNav({
       setSelectedList,
     });
   };
+
+  const navigateOnClick = (_id) => {
+    setSelectedItemId(_id);
+    setVideoId(_id);
+    navigate(`/${isUserPlayList}/${selectedList._id}/${_id}`);
+  };
+
   return (
     <nav>
-      {selectedList.list.map(({ _id, youtubeId, name }) => (
+      {selectedList.list.map(({ _id, youtubeId, name, channelName }) => (
         <div
           key={_id}
           className={
@@ -34,9 +41,7 @@ export function SideBarNav({
               : "flex-horizontal sidebar-item"
           }
           onClick={() => {
-            setSelectedItemId(_id);
-            setVideoId(_id);
-            navigate(`/${isUserPlayList}/${selectedList._id}/${_id}`);
+            navigateOnClick(_id);
           }}
         >
           <div className="margin-right">
@@ -47,11 +52,11 @@ export function SideBarNav({
             />
           </div>
           <div className="flex-horizontal space-between center-align full-width">
-            <div
-              className="font-bold-1 font-size-6"
-              style={{ wordWrap: "break-word" }}
-            >
-              {name}
+            <div className="font-bold-1 font-size-6">
+              <div className="font-bold-1 font-size-6">{name}</div>
+              <div className="font-bold-1 font-size-6 text-gray">
+                {channelName}
+              </div>
             </div>
             {isUserPlayList === "playlist" && (
               <RemoveButton id={_id} removeItem={removeItem} />

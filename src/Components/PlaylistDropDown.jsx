@@ -3,7 +3,7 @@ import { useDataContext } from "../contexts/data-context";
 import { PlaylistCheckBox } from "./PlaylistCheckBox";
 import { useUserActionAPI } from "../hooks/useUserActionAPI";
 
-export function PlaylistDropDown({ videoId, setModalOpen, setSelectedList }) {
+export function PlaylistDropDown({ videoId, setSelectedList }) {
   const [input, setInput] = useState("");
   const { state } = useDataContext();
   const { createNewPlaylistAndAddVideo, newPlaylistStatus } =
@@ -42,7 +42,7 @@ export function PlaylistDropDown({ videoId, setModalOpen, setSelectedList }) {
       </div>
       <div className="padding-bottom padding-right">
         <input
-          className="border-bottom font-size-6 full-width margin-top checkbox-size"
+          className="border-bottom font-size-6 full-width margin-top"
           value={input}
           onChange={(e) => {
             setInput(e.target.value);

@@ -28,7 +28,7 @@ export function LikeButton({ videoId, selectedList, setSelectedList }) {
               : unLikeVideo(videoId, selectedList, setSelectedList)
             : navigate("/login");
         }}
-        className="icon-btn btn-box margin-right "
+        className=" icon-btn btn-box margin-right "
       >
         <span
           className={

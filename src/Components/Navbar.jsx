@@ -16,10 +16,10 @@ export function Navbar() {
   };
 
   return (
-    <div className="nav navbar-height">
+    <div className="nav navbar-height fixed">
       <Link
         className="font-size-3 anchor-link text-color-primary cursor-pointer "
-        to="/"
+        to="/categories"
       >
         <div class="font-size-3 text-color-primary">Dhrutham Play</div>
       </Link>

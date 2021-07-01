@@ -1,7 +1,12 @@
 import { LikeButton } from "../LikeButton";
 import { SaveButton } from "../SaveButton";
 
-export function ViewVideo({ videoObject, setModal }) {
+export function ViewVideo({
+  videoObject,
+  setModal,
+  selectedList,
+  setSelectedList,
+}) {
   return (
     <div>
       <div className="video-wrapper">
@@ -11,10 +16,19 @@ export function ViewVideo({ videoObject, setModal }) {
         ></iframe>
       </div>
       <div className="card-horizontal center-align videoElements padding-top">
-        <div className="font-size-4 font-bold-1">{videoObject.name}</div>
+        <div className="font-size-4">{videoObject.name}</div>
         <div className="nav-list">
-          <LikeButton videoId={videoObject._id} />
-          <SaveButton videoId={videoObject._id} setModal={setModal} />
+          <LikeButton
+            videoId={videoObject._id}
+            selectedList={selectedList}
+            setSelectedList={setSelectedList}
+          />
+          <SaveButton
+            videoId={videoObject._id}
+            setModal={setModal}
+            selectedList={selectedList}
+            setSelectedList={setSelectedList}
+          />
         </div>
       </div>
     </div>

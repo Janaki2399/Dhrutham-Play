@@ -1,13 +1,14 @@
 import { useDataContext } from "../contexts/data-context";
 import { LibraryItem } from "../Components/Library/LibraryItem";
-import { APIStatus } from "../constants";
+import { API_STATUS } from "../constants";
 import { useState } from "react";
 
 export function Library() {
   const { state } = useDataContext();
-  const [status, setStatus] = useState(APIStatus.IDLE);
+  // console.log(userLibrary);
+  const [status, setStatus] = useState(API_STATUS.IDLE);
   return (
-    <div>
+    <div className="grid-wrapper">
       <div className="grid-col-3">
         {state.userLibrary.list?.map((item, index) => {
           return (

@@ -1,57 +1,17 @@
 import { useState } from "react";
 import { useDataContext } from "../contexts/data-context";
 import { PlaylistCheckBox } from "./PlaylistCheckBox";
-import { useAuth } from "../contexts/auth-context";
-import axios from "axios";
+import { useUserActionAPI } from "../hooks/useUserActionAPI";
 
-export function PlaylistDropDown({ videoId, setModal }) {
+export function PlaylistDropDown({ videoId, setModalOpen, setSelectedList }) {
   const [input, setInput] = useState("");
-  const { dispatch, state } = useDataContext();
-  const { token } = useAuth();
-  const [checkbox, setCheckBox] = useState(getUserPlayList());
+  const { state } = useDataContext();
+  const { createNewPlaylistAndAddVideo, newPlaylistStatus } =
+    useUserActionAPI();
 
-  function checkIfItemExistsInList(playlist, videoId) {
+  function isVideoInList(playlist, videoId) {
     return playlist.find((item) => item._id === videoId) !== undefined;
   }
-
-  function getUserPlayList() {
-    const filteredList = state.userLibrary.list.filter(
-      (_, index) => index !== 0
-    );
-    return filteredList.map((item, index) => {
-      if (checkIfItemExistsInList(item.list, videoId)) {
-        return {
-          id: item._id,
-          name: item.name,
-          checked: true,
-        };
-      }
-      return {
-        id: item._id,
-        name: item.name,
-        checked: false,
-      };
-    });
-  }
-  const addToListAndServer = async (playlistObject) => {
-    try {
-      // showToast(`Adding to ${toastItem}`);
-      const { data, status } = await axios.post(
-        `https://dhrutham-play-backend.herokuapp.com/library`,
-        playlistObject,
-        {
-          headers: {
-            authorization: token,
-          },
-        }
-      );
-      if (status === 200) {
-        dispatch({ type: "SET_LIBRARY", payload: data.library });
-      }
-    } catch (error) {
-      alert(error);
-    }
-  };
 
   async function createPlaylist() {
     setInput("");
@@ -63,26 +23,26 @@ export function PlaylistDropDown({ videoId, setModal }) {
         },
       ],
     };
-    addToListAndServer(playlistObject);
-    // dispatch({ type: "CREATE_PLAYLIST", payload: playlistObject });
-    setModal(false);
+    createNewPlaylistAndAddVideo(playlistObject);
   }
   return (
     <div className="padding-left flex-column margin-bottom">
       <div className="drop-down">
-        {checkbox.map((item, index) => (
+        {state.userLibrary.list.map(({ _id, name, list }) => (
           <PlaylistCheckBox
-            item={item}
-            index={index}
+            key={_id}
+            playlistId={_id}
+            playlistName={name}
+            playlistVideoList={list}
             videoId={videoId}
-            setCheckBox={setCheckBox}
+            setSelectedList={setSelectedList}
+            isvideoInList={isVideoInList}
           />
         ))}
       </div>
       <div className="padding-bottom padding-right">
         <input
-          className="border-bottom font-size-6 full-width margin-top"
-          style={{ height: "1.3rem", outline: "0" }}
+          className="border-bottom font-size-6 full-width margin-top checkbox-size"
           value={input}
           onChange={(e) => {
             setInput(e.target.value);

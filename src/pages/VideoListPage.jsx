@@ -6,7 +6,7 @@ import { ViewVideo } from "../Components/VideoList/ViewVideo";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../contexts/auth-context";
-import { APIStatus } from "../constants";
+import { API_STATUS } from "../constants";
 
 export function VideoListPage({ listType }) {
   const { id } = useParams();
@@ -14,14 +14,15 @@ export function VideoListPage({ listType }) {
   const { token } = useAuth();
   const { state, dispatch } = useDataContext();
   const [modal, setModal] = useState(false);
-  const [status, setStatus] = useState(APIStatus.IDLE);
+  const [status, setStatus] = useState(API_STATUS.IDLE);
   const [viewVideoId, setViewVideoId] = useState(videoId);
   const [videoObject, setVideoObject] = useState({});
+  const [selectedList, setSelectedList] = useState({});
 
   useEffect(() => {
     (async function () {
       try {
-        setStatus(APIStatus.LOADING);
+        setStatus(API_STATUS.LOADING);
         const { data, status } = await axios.get(
           `https://dhrutham-play-backend.herokuapp.com/${listType}/${id}/${viewVideoId}`,
           {
@@ -32,35 +33,46 @@ export function VideoListPage({ listType }) {
         );
 
         if (status === 200) {
-          setStatus(APIStatus.SUCCESS);
-          dispatch({ type: "SET_SELECTED_LIST", payload: data[listType] });
+          setStatus(API_STATUS.SUCCESS);
+
+          // dispatch({ type: "SET_SELECTED_LIST", payload: data[listType] });
+          setSelectedList(data[listType]);
           setVideoObject(data.video);
         }
       } catch (error) {
-        setStatus(APIStatus.ERROR);
+        setStatus(API_STATUS.ERROR);
         alert(error);
       }
     })();
   }, [viewVideoId, token, id, dispatch, listType]);
 
-  // if (status === APIStatus.LOADING) {
+  // if (status === API_STATUS.LOADING) {
   //   return <div className="loader" />;
   // }
 
   return (
     <div>
-      {status === APIStatus.LOADING && <span className="loader" />}
+      {status === API_STATUS.LOADING && <span className="loader" />}
       {modal && <Modal videoId={videoId} setModal={setModal} />}
       <div className="grid">
         <main>
           {viewVideoId !== "" && (
-            <ViewVideo videoObject={videoObject} setModal={setModal} />
+            <ViewVideo
+              videoObject={videoObject}
+              setModal={setModal}
+              selectedList={selectedList}
+              setSelectedList={setSelectedList}
+            />
           )}
         </main>
-        {state.selectedCategory.list &&
-          state.selectedCategory.list.length > 0 && (
-            <SideBarNav setVideoId={setViewVideoId} isUserPlayList={listType} />
-          )}
+        {selectedList.list && selectedList.list.length > 0 && (
+          <SideBarNav
+            setVideoId={setViewVideoId}
+            isUserPlayList={listType}
+            selectedList={selectedList}
+            setSelectedList={setSelectedList}
+          />
+        )}
       </div>
     </div>
   );

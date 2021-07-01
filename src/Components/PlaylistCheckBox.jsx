@@ -1,88 +1,41 @@
-import { useDataContext } from "../contexts/data-context";
-import axios from "axios";
-import { useAuth } from "../contexts/auth-context";
-export function PlaylistCheckBox({ item, index, videoId, setCheckBox }) {
-  const { dispatch, state } = useDataContext();
-  const { token } = useAuth();
+import { useUserActionAPI } from "../hooks/useUserActionAPI";
 
-  const handleToggle = (i) => {
-    setCheckBox((prev) =>
-      prev.map((item, index) =>
-        index === i ? { ...item, checked: !item.checked } : item
-      )
-    );
-  };
+export function PlaylistCheckBox({
+  playlistId,
+  playlistName,
+  playlistVideoList,
+  videoId,
+  setSelectedList,
+}) {
+  function isVideoInList(playlistVideoList, videoId) {
+    return playlistVideoList.find((item) => item._id === videoId) !== undefined;
+  }
 
-  const addToListAndServer = async () => {
-    try {
-      // showToast(`Adding to ${toastItem}`);
-      const { data, status } = await axios.post(
-        `https://dhrutham-play-backend.herokuapp.com/playlist/${item.id}`,
-        {
-          _id: videoId,
-        },
-        {
-          headers: {
-            authorization: token,
-          },
-        }
-      );
-      if (status === 200) {
-        dispatch({
-          type: "APPEND_TO_PLAYLIST",
-          payload: { playlistId: item.id, videoId: videoId },
-        });
-      }
-    } catch (error) {
-      alert(error);
-    }
-  };
-  const removeFromListAndServer = async () => {
-    try {
-      const { data, status } = await axios.delete(
-        `https://dhrutham-play-backend.herokuapp.com/playlist/${item.id}/${videoId}`,
-        {
-          headers: {
-            authorization: token,
-          },
-        }
-      );
+  const { addVideoToPlaylist, deleteVideoFromPlaylist } = useUserActionAPI();
 
-      if (status === 200) {
-        dispatch({
-          type: "REMOVE_ITEM_FROM_PLAYLIST",
-          payload: { playlistId: item.id, videoId: videoId },
-        });
-        if (state.selectedCategory._id === item.id) {
-          dispatch({
-            type: "REMOVE_ITEM_FROM_SELECTED_PLAYLIST",
-            payload: videoId,
-          });
-        }
-      }
-    } catch (error) {
-      alert(error);
-    }
-  };
   const toggleCheckBox = (event) => {
-    handleToggle(index);
     if (event.target.checked) {
-      addToListAndServer();
+      addVideoToPlaylist(videoId, playlistId, playlistName);
     } else {
-      removeFromListAndServer();
+      deleteVideoFromPlaylist({
+        videoId,
+        playlistId,
+        playlistName,
+        setSelectedList,
+      });
     }
   };
   return (
     <div className="flex-horizontal margin-top cursor-pointer">
       <input
         type="checkbox"
-        id={item.id}
+        id={playlistId}
         className="margin-right checkbox-size"
-        checked={item.checked}
+        checked={isVideoInList(playlistVideoList, videoId)}
         onChange={toggleCheckBox}
       />
-      <label className="full-width font-size-5" for={item.id}>
-        {item.name}
+      <label className="full-width font-size-5" for={playlistId}>
+        {playlistName}
       </label>
     </div>
   );

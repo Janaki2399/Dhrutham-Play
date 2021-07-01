@@ -1,6 +1,4 @@
-import { PlaylistDropDown } from "../PlaylistDropDown";
-
-export function Modal({ videoId, setModal }) {
+export function Modal({ children, setModalOpen }) {
   return (
     <div className="modal-background">
       <div className="modal-content  playlist-modal-width">
@@ -10,16 +8,14 @@ export function Modal({ videoId, setModal }) {
         >
           <div className="padding-left">Save to</div>
           <div>
-            <button onClick={() => setModal(false)} className=" btn-box ">
+            <button onClick={() => setModalOpen(false)} className=" btn-box ">
               <span className=" material-icons-outlined icon-color-gray ">
                 close
               </span>
             </button>
           </div>
         </div>
-        <div>
-          <PlaylistDropDown videoId={videoId} setModal={setModal} />
-        </div>
+        <div>{children}</div>
       </div>
     </div>
   );

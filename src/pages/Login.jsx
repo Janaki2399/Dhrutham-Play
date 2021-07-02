@@ -8,6 +8,7 @@ import { useAuthAPI } from "../hooks/useAuthAPI";
 export function Login() {
   const navigate = useNavigate();
   const location = useLocation();
+
   const [userDetails, setUserDetails] = useState({
     email: "",
     password: "",

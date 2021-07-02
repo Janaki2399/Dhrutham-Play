@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useAuth } from "../contexts/auth-context";
 import { Modal } from "./VideoList/Modal";
 import { useState } from "react";
@@ -6,13 +6,16 @@ import { PlaylistDropDown } from "./PlaylistDropDown";
 
 export function SaveButton({ videoId, selectedList, setSelectedList }) {
   const { token } = useAuth();
+  const location = useLocation();
   const [modalOpen, setModalOpen] = useState(false);
   const navigate = useNavigate();
   return (
     <div>
       <button
         onClick={() => {
-          token ? setModalOpen(true) : navigate("/login");
+          token
+            ? setModalOpen(true)
+            : navigate("/login", { state: { from: location.pathname } });
         }}
         className="nav-item btn-box"
       >

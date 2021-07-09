@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/auth-context";
 import { useNavigate } from "react-router-dom";
-import { useDataContext } from "../contexts/data-context";
+import { useLibraryContext } from "../contexts/library-context";
 
 export function Navbar() {
   const { token, setToken } = useAuth();
   const navigate = useNavigate();
-  const { dispatch } = useDataContext();
+  const { dispatch } = useLibraryContext();
 
   const logout = () => {
     setToken(null);

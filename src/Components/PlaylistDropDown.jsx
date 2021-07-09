@@ -1,13 +1,12 @@
 import { useState } from "react";
-import { useDataContext } from "../contexts/data-context";
+import { useLibraryContext } from "../contexts/library-context";
 import { PlaylistCheckBox } from "./PlaylistCheckBox";
 import { useUserActionAPI } from "../hooks/useUserActionAPI";
 
 export function PlaylistDropDown({ videoId, setSelectedList }) {
   const [input, setInput] = useState("");
-  const { state } = useDataContext();
-  const { createNewPlaylistAndAddVideo, newPlaylistStatus } =
-    useUserActionAPI();
+  const { state } = useLibraryContext();
+  const { createNewPlaylistAndAddVideo } = useUserActionAPI();
 
   function isVideoInList(playlist, videoId) {
     return playlist.find((item) => item._id === videoId) !== undefined;
@@ -42,7 +41,7 @@ export function PlaylistDropDown({ videoId, setSelectedList }) {
       </div>
       <div className="padding-bottom padding-right">
         <input
-          className="border-bottom font-size-6 full-width margin-top"
+          className="border-bottom font-size-6 full-width margin-top input-box"
           value={input}
           onChange={(e) => {
             setInput(e.target.value);

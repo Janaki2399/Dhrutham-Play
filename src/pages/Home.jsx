@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import illustration1 from "../assets/music file2-09.svg";
+import illustration1 from "../assets/illustration.svg";
 
 export const Home = () => {
   const navigate = useNavigate();

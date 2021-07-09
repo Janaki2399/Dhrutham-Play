@@ -1,12 +1,20 @@
-import { useDataContext } from "../contexts/data-context";
+import { useLibraryContext } from "../contexts/library-context";
 import { LibraryItem } from "../Components/Library/LibraryItem";
 import { API_STATUS } from "../constants";
-import { useState } from "react";
 
 export function Library() {
-  const { state } = useDataContext();
-  // console.log(userLibrary);
-  const [status, setStatus] = useState(API_STATUS.IDLE);
+  const { state } = useLibraryContext();
+
+  const getFetchLibraryStatus = () => {
+    return (
+      state.status.fetchLibrary === API_STATUS.LOADING ||
+      state.status.fetchLibrary === API_STATUS.IDLE
+    );
+  };
+
+  if (getFetchLibraryStatus()) {
+    return <div className="loader center-page-align" />;
+  }
   return (
     <div className="grid-wrapper">
       <div className="grid-col-3">

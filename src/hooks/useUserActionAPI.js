@@ -1,27 +1,19 @@
-import { useNavigate } from "react-router";
-import { useDataContext } from "../contexts/data-context";
+import { useLibraryContext } from "../contexts/library-context";
 import { useAuth } from "../contexts/auth-context";
 import axios from "axios";
-import { useState } from "react";
-import { API_STATUS, API_URL } from "../constants";
+import { API_URL } from "../constants";
 import { useToast } from "../contexts/toast-context";
 
 export const useUserActionAPI = () => {
   const { token } = useAuth();
-  const { state, dispatch } = useDataContext();
+  const { state, dispatch } = useLibraryContext();
   const { showToast } = useToast();
-  const navigate = useNavigate();
-  const [likeStatus, setLikeStatus] = useState(API_STATUS.IDLE);
-  const [unLikeStatus, setUnLikeStatus] = useState(API_STATUS.IDLE);
-  const [deleteVideoStatus, setDeleteVideoStatus] = useState(API_STATUS.IDLE);
-  const [addVideoStatus, setAddVideoStatus] = useState(API_STATUS.IDLE);
-  const [newPlaylistStatus, setNewPlaylistStatus] = useState(API_STATUS.IDLE);
 
   const likeVideo = async (videoId) => {
     try {
-      setLikeStatus(API_STATUS.LOADING);
-      const { data, status } = await axios.post(
-        `https://dhrutham-play-backend.herokuapp.com/playlist/${state.userLibrary.list[0]._id}`,
+      dispatch({ type: "INITIALIZE_LIKE_STATUS" });
+      const { status } = await axios.post(
+        `${API_URL}/playlist/${state.userLibrary.list[0]._id}`,
         {
           _id: videoId,
         },
@@ -32,23 +24,25 @@ export const useUserActionAPI = () => {
         }
       );
       if (status === 200) {
-        setLikeStatus(API_STATUS.SUCCESS);
         dispatch({
           type: "APPEND_ITEM_TO_LIKED_VIDEOS",
           payload: { _id: videoId },
         });
       }
     } catch (error) {
-      setLikeStatus(API_STATUS.ERROR);
+      dispatch({
+        type: "SET_LIKE_FAILURE",
+        errorMessage: "Something went wrong",
+      });
       showToast("Something went wrong");
     }
   };
 
   const unLikeVideo = async (videoId, selectedList, setSelectedList) => {
     try {
-      setUnLikeStatus(API_STATUS.LOADING);
-      const { data, status } = await axios.delete(
-        `https://dhrutham-play-backend.herokuapp.com/playlist/${state.userLibrary.list[0]._id}/${videoId}`,
+      dispatch({ type: "INITIALIZE_UNLIKE_STATUS" });
+      const { status } = await axios.delete(
+        `${API_URL}/playlist/${state.userLibrary.list[0]._id}/${videoId}`,
         {
           headers: {
             authorization: token,
@@ -57,7 +51,6 @@ export const useUserActionAPI = () => {
       );
 
       if (status === 200) {
-        setUnLikeStatus(API_STATUS.SUCCESS);
         dispatch({
           type: "REMOVE_FROM_LIKED_VIDEOS",
           payload: { _id: videoId },
@@ -73,16 +66,19 @@ export const useUserActionAPI = () => {
         }
       }
     } catch (error) {
-      setUnLikeStatus(API_STATUS.ERROR);
+      dispatch({
+        type: "SET_UNLIKE_FAILURE",
+        errorMessage: "Something went wrong",
+      });
       showToast("Something went wrong");
     }
   };
 
   const addVideoToPlaylist = async (videoId, playlistId, playlistName) => {
     try {
-      setAddVideoStatus(API_STATUS.LOADING);
-      const { data, status } = await axios.post(
-        `https://dhrutham-play-backend.herokuapp.com/playlist/${playlistId}`,
+      dispatch({ type: "INITIALIZE_ADD_VIDEO_STATUS" });
+      const { status } = await axios.post(
+        `${API_URL}/playlist/${playlistId}`,
         {
           _id: videoId,
         },
@@ -93,7 +89,6 @@ export const useUserActionAPI = () => {
         }
       );
       if (status === 200) {
-        setAddVideoStatus(API_STATUS.SUCCESS);
         dispatch({
           type: "APPEND_TO_PLAYLIST",
           payload: { playlistId: playlistId, videoId: videoId },
@@ -101,7 +96,10 @@ export const useUserActionAPI = () => {
         showToast(`Added to ${playlistName} `);
       }
     } catch (error) {
-      setAddVideoStatus(API_STATUS.ERROR);
+      dispatch({
+        type: "SET_ADD_VIDEO_FAILURE",
+        errorMessage: "Something went wrong",
+      });
       showToast("Something went wrong");
     }
   };
@@ -113,9 +111,9 @@ export const useUserActionAPI = () => {
     setSelectedList,
   }) => {
     try {
-      setDeleteVideoStatus(API_STATUS.LOADING);
-      const { data, status } = await axios.delete(
-        `https://dhrutham-play-backend.herokuapp.com/playlist/${playlistId}/${videoId}`,
+      dispatch({ type: "INITIALIZE_DELETE_VIDEO_STATUS" });
+      const { status } = await axios.delete(
+        `${API_URL}/playlist/${playlistId}/${videoId}`,
         {
           headers: {
             authorization: token,
@@ -124,7 +122,6 @@ export const useUserActionAPI = () => {
       );
 
       if (status === 200) {
-        setDeleteVideoStatus(API_STATUS.SUCCESS);
         showToast(`Removed from ${playlistName}`);
         dispatch({
           type: "REMOVE_ITEM_FROM_PLAYLIST",
@@ -141,16 +138,19 @@ export const useUserActionAPI = () => {
         });
       }
     } catch (error) {
-      setDeleteVideoStatus(API_STATUS.ERROR);
+      dispatch({
+        type: "SET_DELETE_VIDEO_FAILURE",
+        errorMessage: "Something went wrong",
+      });
       showToast("Something went wrong");
     }
   };
 
   const createNewPlaylistAndAddVideo = async (playlistObject) => {
     try {
-      setNewPlaylistStatus(API_STATUS.LOADING);
+      dispatch({ type: "INITIALIZE_CREATE_PLAYLIST_WITH_VIDEO_STATUS" });
       const { data, status } = await axios.post(
-        `https://dhrutham-play-backend.herokuapp.com/library`,
+        `${API_URL}/library`,
         playlistObject,
         {
           headers: {
@@ -159,18 +159,22 @@ export const useUserActionAPI = () => {
         }
       );
       if (status === 200) {
-        setNewPlaylistStatus(API_STATUS.SUCCESS);
-        dispatch({ type: "SET_LIBRARY", payload: data.library });
+        dispatch({ type: "CREATE_PLAYLIST_WITH_VIDEO", payload: data.library });
       }
     } catch (error) {
-      setNewPlaylistStatus(API_STATUS.ERROR);
+      dispatch({
+        type: "SET_CREATE_PLAYLIST_WITH_VIDEO_FAILURE",
+        errorMessage: "Something went wrong",
+      });
       showToast("Something went wrong");
     }
   };
+
   const deletePlaylist = async (playlistId, playlistName) => {
     try {
-      const { data, status } = await axios.delete(
-        `https://dhrutham-play-backend.herokuapp.com/playlist/${playlistId}`,
+      dispatch({ type: "INITIALIZE_DELETE_PLAYLIST_STATUS" });
+      const { status } = await axios.delete(
+        `${API_URL}/playlist/${playlistId}`,
         {
           headers: {
             authorization: token,
@@ -183,6 +187,10 @@ export const useUserActionAPI = () => {
         dispatch({ type: "DELETE_PLAYLIST", payload: { playlistId } });
       }
     } catch (error) {
+      dispatch({
+        type: "SET_DELETE_PLAYLIST_FAILURE",
+        errorMessage: "Something went wrong",
+      });
       showToast("Something went wrong");
     }
   };
@@ -193,10 +201,5 @@ export const useUserActionAPI = () => {
     deleteVideoFromPlaylist,
     createNewPlaylistAndAddVideo,
     deletePlaylist,
-    likeStatus,
-    unLikeStatus,
-    addVideoStatus,
-    deleteVideoStatus,
-    newPlaylistStatus,
   };
 };

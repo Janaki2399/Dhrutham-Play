@@ -3,8 +3,9 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
-import { DataProvider } from "./contexts/data-context";
+import { LibraryProvider } from "./contexts/library-context";
 import { AuthProvider } from "./contexts/auth-context";
+import { CategoryProvider } from "./contexts/category-context";
 import { ToastProvider } from "./contexts/toast-context";
 
 ReactDOM.render(
@@ -12,9 +13,11 @@ ReactDOM.render(
     <Router>
       <ToastProvider>
         <AuthProvider>
-          <DataProvider>
-            <App />
-          </DataProvider>
+          <LibraryProvider>
+            <CategoryProvider>
+              <App />
+            </CategoryProvider>
+          </LibraryProvider>
         </AuthProvider>
       </ToastProvider>
     </Router>

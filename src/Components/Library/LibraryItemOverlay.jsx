@@ -4,7 +4,7 @@ export function LibraryItemOverlay({ categoryItem }) {
       <div className="flex-column center-align-ver-hor center-page-align">
         <div>{categoryItem.list.length}</div>
         <div>
-          <span class="material-icons-outlined icon-size-30">
+          <span className="material-icons-outlined icon-size-30">
             playlist_play
           </span>
         </div>

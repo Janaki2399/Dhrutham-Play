@@ -1,10 +1,10 @@
-import { useDataContext } from "../contexts/data-context";
+import { useLibraryContext } from "../contexts/library-context";
 import { useAuth } from "../contexts/auth-context";
 import { useNavigate, useLocation } from "react-router";
 import { useUserActionAPI } from "../hooks/useUserActionAPI";
 
 export function LikeButton({ videoId, selectedList, setSelectedList }) {
-  const { state } = useDataContext();
+  const { state } = useLibraryContext();
   const { token } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();

@@ -22,7 +22,7 @@ export function LibraryItem({ categoryItem, isUserPlayList }) {
   return (
     <div>
       <div
-        className="card card-shadow card-vertical"
+        className="card card-shadow card-vertical cursor-pointer"
         onClick={navigateOnSelectingPlaylist}
       >
         <div className="relative-position">

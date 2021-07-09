@@ -1,4 +1,4 @@
-import { useDataContext } from "../contexts/data-context";
+import { useLibraryContext } from "../contexts/library-context";
 import { Modal } from "../Components/VideoList//Modal";
 import { useParams } from "react-router";
 import { SideBarNav } from "../Components/VideoList/SidebarNav";
@@ -6,13 +6,13 @@ import { ViewVideo } from "../Components/VideoList/ViewVideo";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "../contexts/auth-context";
-import { API_STATUS } from "../constants";
+import { API_STATUS, API_URL } from "../constants";
 
 export function VideoListPage({ listType }) {
   const { id } = useParams();
   const { videoId } = useParams();
   const { token } = useAuth();
-  const { state, dispatch } = useDataContext();
+  const { state, dispatch } = useLibraryContext();
   const [modal, setModal] = useState(false);
   const [status, setStatus] = useState(API_STATUS.IDLE);
   const [viewVideoId, setViewVideoId] = useState(videoId);
@@ -24,7 +24,7 @@ export function VideoListPage({ listType }) {
       try {
         setStatus(API_STATUS.LOADING);
         const { data, status } = await axios.get(
-          `https://dhrutham-play-backend.herokuapp.com/${listType}/${id}/${viewVideoId}`,
+          `${API_URL}/${listType}/${id}/${viewVideoId}`,
           {
             headers: {
               authorization: token,
@@ -34,8 +34,6 @@ export function VideoListPage({ listType }) {
 
         if (status === 200) {
           setStatus(API_STATUS.SUCCESS);
-
-          // dispatch({ type: "SET_SELECTED_LIST", payload: data[listType] });
           setSelectedList(data[listType]);
           setVideoObject(data.video);
         }
@@ -45,10 +43,6 @@ export function VideoListPage({ listType }) {
       }
     })();
   }, [viewVideoId, token, id, dispatch, listType]);
-
-  // if (status === API_STATUS.LOADING) {
-  //   return <div className="loader" />;
-  // }
 
   return (
     <div>

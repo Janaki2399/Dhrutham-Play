@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../contexts/auth-context";
 import { useLocation } from "react-router";
 import { useForms } from "../hooks/useForms";
 import { useAuthAPI } from "../hooks/useAuthAPI";
@@ -16,7 +15,6 @@ export function SignUp() {
   });
   const { signUp, signupStatus, errorMessage } = useAuthAPI();
   const location = useLocation();
-  // const [errorMessage, setErrorMessage] = useState("");
 
   const {
     touchedFields,
@@ -48,10 +46,7 @@ export function SignUp() {
       : "text-input generic-border-color";
   };
   return (
-    <div
-      className="center-page-align"
-      style={{ width: "90%", maxWidth: "20rem" }}
-    >
+    <div className="center-page-align auth-form">
       <form
         onSubmit={handleSignUp}
         className=" border-all gray-border padding-all"
@@ -71,12 +66,11 @@ export function SignUp() {
           )}
         </div>
 
-        <div class="flex-column margin-bottom">
-          <label class="font-size-6 font-bold-1">Last Name</label>
+        <div className="flex-column margin-bottom">
+          <label className="font-size-6 font-bold-1">Last Name</label>
           <input
             type="text"
             className={getInputClassName("lastName")}
-            // required
             onChange={handleOnChange("lastName")}
             onBlur={() => handleOnBlur("lastName")}
           />
@@ -84,8 +78,8 @@ export function SignUp() {
             <InputError error={errors.lastName} />
           )}
         </div>
-        <div class="flex-column margin-bottom">
-          <label class="font-size-6 font-bold-1">Email</label>
+        <div className="flex-column margin-bottom">
+          <label className="font-size-6 font-bold-1">Email</label>
           <input
             type="email"
             className={getInputClassName("email")}
@@ -95,8 +89,8 @@ export function SignUp() {
           />
           {shouldShowErrors("email") && <InputError error={errors.email} />}
         </div>
-        <div class="flex-column margin-bottom">
-          <label class="font-size-6 font-bold-1">Password</label>
+        <div className="flex-column margin-bottom">
+          <label className="font-size-6 font-bold-1">Password</label>
           <input
             type="password"
             className={getInputClassName("password")}

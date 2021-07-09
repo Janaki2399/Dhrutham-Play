@@ -22,9 +22,6 @@ export function Login() {
     isBtnDisabled,
   } = useForms(setUserDetails);
 
-  // const [status, setStatus] = useState(API_STATUS.IDLE);
-  // const [errorMessage, setErrorMessage] = useState("");
-
   const handleSubmit = (e) => {
     e.preventDefault();
     login(userDetails, location.state);
@@ -40,10 +37,7 @@ export function Login() {
       : "text-input generic-border-color";
   };
   return (
-    <div
-      className="center-page-align "
-      style={{ width: "90%", maxWidth: "20rem" }}
-    >
+    <div className="center-page-align auth-form">
       <form
         onSubmit={handleSubmit}
         className=" border-all gray-border padding-all"
@@ -53,17 +47,17 @@ export function Login() {
           <label class="font-size-6 font-bold-1">Email</label>
           <input
             type="email"
-            class={getInputClassName("email")}
+            className={getInputClassName("email")}
             onChange={handleOnChange("email")}
             onBlur={() => handleOnBlur("email")}
           />
           {shouldShowErrors("email") && <InputError error={errors.email} />}
         </div>
-        <div class="flex-column margin-bottom">
-          <label class="font-size-6 font-bold-1">Password</label>
+        <div className="flex-column margin-bottom">
+          <label className="font-size-6 font-bold-1">Password</label>
           <input
             type="password"
-            class={getInputClassName("password")}
+            className={getInputClassName("password")}
             onChange={handleOnChange("password")}
             onBlur={() => handleOnBlur("password")}
           />

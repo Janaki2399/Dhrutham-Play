@@ -1,44 +1,37 @@
-import { useDataContext } from "../contexts/data-context";
+import { useCategoryContext } from "../contexts/category-context";
 import { CategoryItem } from "../Components/Category/CategoryItem";
-import { useState, useEffect } from "react";
-import { API_STATUS } from "../constants";
+import { useEffect } from "react";
+import { API_STATUS, API_URL } from "../constants";
 import axios from "axios";
-import illustration1 from "../assets/music file2-09.svg";
-import { useGetDataAPI } from "../hooks/useGetDataAPI";
 
 export function Category() {
-  // const [categories, setCategories] = useState([]);
-  const { state } = useDataContext();
-  const { categoriesStatus } = useGetDataAPI();
-  console.log("laoo");
-  if (categoriesStatus === "loading") {
+  const { state, dispatch } = useCategoryContext();
+
+  useEffect(() => {
+    (async function () {
+      if (state.status === API_STATUS.IDLE) {
+        try {
+          dispatch({ type: "INITIALIZE_CATEGORIES_FETCH" });
+
+          const { data, status } = await axios.get(`${API_URL}/categories`);
+
+          if (status === 200) {
+            dispatch({
+              type: "SET_CATEGORIES",
+              payload: { categories: data.categories },
+            });
+          }
+        } catch (error) {
+          dispatch({ type: "SET_ERROR_MESSAGE" });
+        }
+      }
+    })();
+  }, []);
+
+  if (state.status === API_STATUS.LOADING || state.status === API_STATUS.IDLE) {
     return <div className="loader center-page-align" />;
   }
-  // useEffect(() => {
-  //   (async function () {
-  //     try {
-  //       setStatus(API_STATUS.LOADING);
-  //       const { data, status } = await axios.get(
-  //         `https://dhrutham-play-backend.herokuapp.com/categories`
-  //       );
 
-  //       if (status === 200) {
-  //         setStatus(API_STATUS.SUCCESS);
-  //         setCategories(data.categories);
-  //       }
-  //     } catch (error) {
-  //       setStatus(API_STATUS.ERROR);
-  //       alert(error);
-  //     }
-  //   })();
-  // }, []);
-
-  // if ((status === API_STATUS.LOADING) | (status === API_STATUS.IDLE)) {
-  //   return <div className="loader center-page-align" />;
-  // }
-  if (categoriesStatus === "loading") {
-    return <div className="loader center-page-align" />;
-  }
   return (
     <div className="grid-wrapper margin-right">
       <div className="grid-col-3 ">

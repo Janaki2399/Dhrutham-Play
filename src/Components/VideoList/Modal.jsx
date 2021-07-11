@@ -8,7 +8,10 @@ export function Modal({ children, setModalOpen }) {
         >
           <div className="padding-left">Save to</div>
           <div>
-            <button onClick={() => setModalOpen(false)} className=" btn-box ">
+            <button
+              onClick={() => setModalOpen(false)}
+              className=" btn-box cursor-pointer"
+            >
               <span className=" material-icons-outlined icon-color-gray ">
                 close
               </span>

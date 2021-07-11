@@ -30,5 +30,5 @@ export const useLoadData = () => {
         }
       }
     })();
-  }, [token]);
+  }, [token, dispatch]);
 };

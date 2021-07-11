@@ -12,7 +12,7 @@ export function VideoListPage({ listType }) {
   const { id } = useParams();
   const { videoId } = useParams();
   const { token } = useAuth();
-  const { state, dispatch } = useLibraryContext();
+  const { dispatch } = useLibraryContext();
   const [modal, setModal] = useState(false);
   const [status, setStatus] = useState(API_STATUS.IDLE);
   const [viewVideoId, setViewVideoId] = useState(videoId);

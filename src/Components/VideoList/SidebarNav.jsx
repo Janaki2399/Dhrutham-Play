@@ -10,7 +10,7 @@ export function SideBarNav({
   setSelectedList,
 }) {
   const { videoId } = useParams();
-  const { deleteVideoFromPlaylist, deleteVideoStatus } = useUserActionAPI();
+  const { deleteVideoFromPlaylist } = useUserActionAPI();
   const [selectedItemId, setSelectedItemId] = useState(videoId);
   const navigate = useNavigate();
 
@@ -37,8 +37,8 @@ export function SideBarNav({
           key={_id}
           className={
             selectedItemId === _id
-              ? "flex-horizontal bg-gray sidebar-item "
-              : "flex-horizontal sidebar-item"
+              ? "flex-horizontal bg-gray sidebar-item cursor-pointer"
+              : "flex-horizontal sidebar-item cursor-pointer"
           }
           onClick={() => {
             navigateOnClick(_id);

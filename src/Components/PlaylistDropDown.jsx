@@ -27,21 +27,24 @@ export function PlaylistDropDown({ videoId, setSelectedList }) {
   return (
     <div className="padding-left flex-column margin-bottom">
       <div className="drop-down">
-        {state.userLibrary.list.map(({ _id, name, list }) => (
-          <PlaylistCheckBox
-            key={_id}
-            playlistId={_id}
-            playlistName={name}
-            playlistVideoList={list}
-            videoId={videoId}
-            setSelectedList={setSelectedList}
-            isvideoInList={isVideoInList}
-          />
-        ))}
+        {state.userLibrary.list.map(
+          ({ _id, name, list }, index) =>
+            index !== 0 && (
+              <PlaylistCheckBox
+                key={_id}
+                playlistId={_id}
+                playlistName={name}
+                playlistVideoList={list}
+                videoId={videoId}
+                setSelectedList={setSelectedList}
+                isvideoInList={isVideoInList}
+              />
+            )
+        )}
       </div>
       <div className="padding-bottom padding-right">
         <input
-          className="border-bottom font-size-6 full-width margin-top input-box"
+          className="border-bottom font-size-6 full-width margin-top playlist-creation-input"
           value={input}
           onChange={(e) => {
             setInput(e.target.value);
@@ -50,12 +53,14 @@ export function PlaylistDropDown({ videoId, setSelectedList }) {
         ></input>
 
         {input !== "" && (
-          <button
-            className="margin-top padding-right btn btn-text text-end full-width color-blue"
-            onClick={createPlaylist}
-          >
-            CREATE
-          </button>
+          <div className="float-right">
+            <button
+              className="margin-top  btn btn-text full-width color-blue"
+              onClick={createPlaylist}
+            >
+              CREATE
+            </button>
+          </div>
         )}
       </div>
     </div>

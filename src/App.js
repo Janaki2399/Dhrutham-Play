@@ -1,7 +1,7 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import { Navbar } from "./Components/Navbar";
-import { PrivateRoute } from "./PrivateRoute";
+import { PrivateRoute } from "./Components/PrivateRoute";
 import { Login } from "./pages/Login";
 import { Category } from "./pages/Category";
 import { VideoListPage } from "./pages/VideoListPage";

@@ -34,7 +34,7 @@ export function PlaylistCheckBox({
         checked={isVideoInList(playlistVideoList, videoId)}
         onChange={toggleCheckBox}
       />
-      <label className="full-width font-size-5" for={playlistId}>
+      <label className="full-width font-size-5" htmlFor={playlistId}>
         {playlistName}
       </label>
     </div>

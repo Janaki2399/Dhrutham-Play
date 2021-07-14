@@ -166,8 +166,8 @@ main {
   font-weight: 500;
 }
 
-.remove-btn-focus:focus {
-  background-color: rgb(57, 57, 145);
+.remove-btn-focus:hover {
+  background-color: rgb(212, 211, 211);
 }
 
 .auth-form {

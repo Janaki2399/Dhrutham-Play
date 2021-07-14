@@ -26,7 +26,7 @@ export function Category() {
         }
       }
     })();
-  }, []);
+  }, [dispatch, state.status]);
 
   if (state.status === API_STATUS.LOADING || state.status === API_STATUS.IDLE) {
     return <div className="loader center-page-align" />;

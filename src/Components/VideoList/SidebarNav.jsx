@@ -38,7 +38,7 @@ export function SideBarNav({
           className={
             selectedItemId === _id
               ? "flex-horizontal bg-gray sidebar-item cursor-pointer"
-              : "flex-horizontal sidebar-item cursor-pointer"
+              : "flex-horizontal sidebar-item  cursor-pointer"
           }
           onClick={() => {
             navigateOnClick(_id);
@@ -52,7 +52,7 @@ export function SideBarNav({
             />
           </div>
           <div className="flex-horizontal space-between center-align full-width">
-            <div className="font-bold-1 font-size-6">
+            <div className="font-bold-1 font-size-6 ">
               <div className="font-bold-1 font-size-6">{name}</div>
               <div className="font-bold-1 font-size-6 text-gray">
                 {channelName}

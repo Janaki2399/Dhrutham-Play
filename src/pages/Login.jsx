@@ -1,4 +1,3 @@
-import { useAuth } from "../contexts/auth-context";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { API_STATUS } from "../constants";

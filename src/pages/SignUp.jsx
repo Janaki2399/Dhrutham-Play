@@ -53,8 +53,8 @@ export function SignUp() {
         noValidate
       >
         <div className="font-size-3 margin-bottom text-center">Sign Up</div>
-        <div class="flex-column margin-bottom">
-          <label class="font-size-6 font-bold-1">First Name</label>
+        <div className="flex-column margin-bottom">
+          <label className="font-size-6 font-bold-1">First Name</label>
           <input
             type="text"
             className={getInputClassName("firstName")}

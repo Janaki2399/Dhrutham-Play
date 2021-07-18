@@ -42,8 +42,8 @@ export function Login() {
         className=" border-all gray-border padding-all"
       >
         <div className="font-size-3 margin-bottom text-center">Login</div>
-        <div class="flex-column margin-bottom">
-          <label class="font-size-6 font-bold-1">Email</label>
+        <div className="flex-column margin-bottom">
+          <label className="font-size-6 font-bold-1">Email</label>
           <input
             type="email"
             className={getInputClassName("email")}

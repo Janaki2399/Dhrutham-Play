@@ -31,13 +31,13 @@ export function LikeButton({ videoId, selectedList, setSelectedList }) {
     <div>
       <button
         onClick={onLikeButtonClick}
-        className=" icon-btn btn-box margin-right "
+        className=" icon-btn btn-box margin-right cursor-pointer"
       >
         <span
           className={
             !isVideoLiked()
-              ? " material-icons-outlined icon-color-gray "
-              : "material-icons icon-color-primary "
+              ? "material-icons-outlined icon-color-gray"
+              : "material-icons icon-color-primary"
           }
         >
           thumb_up

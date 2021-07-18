@@ -17,7 +17,7 @@ export function SaveButton({ videoId, selectedList, setSelectedList }) {
             ? setModalOpen(true)
             : navigate("/login", { state: { from: location.pathname } });
         }}
-        className="nav-item btn-box"
+        className="nav-item btn-box cursor-pointer"
       >
         <span className=" material-icons-outlined icon-color-gray icon-size-30">
           playlist_add

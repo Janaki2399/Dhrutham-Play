@@ -77,7 +77,7 @@ export const useUserActionAPI = () => {
   const addVideoToPlaylist = async (videoId, playlistId, playlistName) => {
     try {
       dispatch({ type: "INITIALIZE_ADD_VIDEO_STATUS" });
-      const { status } = await axios.post(
+      const { data, status } = await axios.post(
         `${API_URL}/playlist/${playlistId}`,
         {
           _id: videoId,
@@ -88,10 +88,12 @@ export const useUserActionAPI = () => {
           },
         }
       );
+
       if (status === 200) {
+        console.log(data);
         dispatch({
           type: "APPEND_TO_PLAYLIST",
-          payload: { playlistId: playlistId, videoId: videoId },
+          payload: { playlistId, data: data.updatedList },
         });
         showToast(`Added to ${playlistName} `);
       }

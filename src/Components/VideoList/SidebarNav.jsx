@@ -1,14 +1,9 @@
 import { RemoveButton } from "../RemoveButton";
 import { useNavigate, useParams } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUserActionAPI } from "../../hooks/useUserActionAPI";
 
-export function SideBarNav({
-  setVideoId,
-  isUserPlayList,
-  selectedList,
-  setSelectedList,
-}) {
+export function SideBarNav({ isUserPlayList, selectedList, setSelectedList }) {
   const { videoId } = useParams();
   const { deleteVideoFromPlaylist } = useUserActionAPI();
   const [selectedItemId, setSelectedItemId] = useState(videoId);
@@ -26,9 +21,12 @@ export function SideBarNav({
 
   const navigateOnClick = (_id) => {
     setSelectedItemId(_id);
-    setVideoId(_id);
     navigate(`/${isUserPlayList}/${selectedList._id}/${_id}`);
   };
+
+  useEffect(() => {
+    setSelectedItemId(videoId);
+  }, [videoId]);
 
   return (
     <nav>

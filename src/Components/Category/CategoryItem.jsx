@@ -12,7 +12,11 @@ export function CategoryItem({ categoryItem }) {
       }}
     >
       <div>
-        <img className="card-img" src={violin} alt="video-img" />
+        <img
+          className="card-img"
+          src={categoryItem.thumbnail}
+          alt="video-img"
+        />
       </div>
       <div className="card-content-padding flex-horizontal space-between flex-dir">
         <div className="card-title font-size-5 flex flex-column ">

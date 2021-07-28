@@ -55,10 +55,10 @@ export function libraryReducer(state, action) {
         userLibrary: {
           ...state.userLibrary,
           list: state.userLibrary.list.map((item, index) =>
-            index === 0
+            item._id === action.payload.playlistId
               ? {
                   ...item,
-                  list: item.list.concat(action.payload),
+                  list: action.payload.data.list,
                 }
               : item
           ),
@@ -150,8 +150,6 @@ export function libraryReducer(state, action) {
       };
 
     case "APPEND_TO_PLAYLIST":
-      console.log(action.payload.playlistId);
-      console.log(action.payload.data.list);
       return {
         ...state,
         userLibrary: {

@@ -15,7 +15,6 @@ export function VideoListPage({ listType }) {
   const { dispatch } = useLibraryContext();
   const [modal, setModal] = useState(false);
   const [status, setStatus] = useState(API_STATUS.IDLE);
-  const [viewVideoId, setViewVideoId] = useState(videoId);
   const [videoObject, setVideoObject] = useState({});
   const [selectedList, setSelectedList] = useState({});
 
@@ -24,7 +23,7 @@ export function VideoListPage({ listType }) {
       try {
         setStatus(API_STATUS.LOADING);
         const { data, status } = await axios.get(
-          `${API_URL}/${listType}/${id}/${viewVideoId}`,
+          `${API_URL}/${listType}/${id}/${videoId}`,
           {
             headers: {
               authorization: token,
@@ -42,7 +41,7 @@ export function VideoListPage({ listType }) {
         alert(error);
       }
     })();
-  }, [viewVideoId, token, id, dispatch, listType]);
+  }, [videoId, token, id, dispatch, listType]);
 
   return (
     <div>
@@ -50,7 +49,7 @@ export function VideoListPage({ listType }) {
       {modal && <Modal videoId={videoId} setModal={setModal} />}
       <div className="grid">
         <main>
-          {viewVideoId !== "" && (
+          {videoId !== "" && (
             <ViewVideo
               videoObject={videoObject}
               setModal={setModal}
@@ -61,7 +60,6 @@ export function VideoListPage({ listType }) {
         </main>
         {selectedList.list && selectedList.list.length > 0 && (
           <SideBarNav
-            setVideoId={setViewVideoId}
             isUserPlayList={listType}
             selectedList={selectedList}
             setSelectedList={setSelectedList}

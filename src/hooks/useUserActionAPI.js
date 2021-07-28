@@ -12,7 +12,7 @@ export const useUserActionAPI = () => {
   const likeVideo = async (videoId) => {
     try {
       dispatch({ type: "INITIALIZE_LIKE_STATUS" });
-      const { status } = await axios.post(
+      const { data, status } = await axios.post(
         `${API_URL}/playlist/${state.userLibrary.list[0]._id}`,
         {
           _id: videoId,
@@ -26,7 +26,10 @@ export const useUserActionAPI = () => {
       if (status === 200) {
         dispatch({
           type: "APPEND_ITEM_TO_LIKED_VIDEOS",
-          payload: { _id: videoId },
+          payload: {
+            playlistId: state.userLibrary.list[0]._id,
+            data: data.updatedList,
+          },
         });
       }
     } catch (error) {
@@ -90,7 +93,6 @@ export const useUserActionAPI = () => {
       );
 
       if (status === 200) {
-        console.log(data);
         dispatch({
           type: "APPEND_TO_PLAYLIST",
           payload: { playlistId, data: data.updatedList },

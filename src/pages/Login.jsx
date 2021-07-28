@@ -9,8 +9,8 @@ export function Login() {
   const location = useLocation();
 
   const [userDetails, setUserDetails] = useState({
-    email: "",
-    password: "",
+    email: "test@test.com",
+    password: "test123",
   });
   const { login, loginStatus, errorMessage } = useAuthAPI();
   const {
@@ -48,6 +48,7 @@ export function Login() {
             type="email"
             className={getInputClassName("email")}
             onChange={handleOnChange("email")}
+            value={userDetails.email}
             onBlur={() => handleOnBlur("email")}
           />
           {shouldShowErrors("email") && <InputError error={errors.email} />}
@@ -58,6 +59,7 @@ export function Login() {
             type="password"
             className={getInputClassName("password")}
             onChange={handleOnChange("password")}
+            value={userDetails.password}
             onBlur={() => handleOnBlur("password")}
           />
           {shouldShowErrors("password") && (

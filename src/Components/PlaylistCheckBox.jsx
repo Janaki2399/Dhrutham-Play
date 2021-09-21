@@ -27,14 +27,14 @@ export function PlaylistCheckBox({
   };
   return (
     <div className="flex-horizontal margin-top cursor-pointer">
+      <label className="full-width font-size-5 cursor-pointer" htmlFor={playlistId}>
       <input
         type="checkbox"
         id={playlistId}
-        className="margin-right checkbox-size"
+        className="margin-right checkbox-size cursor-pointer"
         checked={isVideoInList(playlistVideoList, videoId)}
         onChange={toggleCheckBox}
       />
-      <label className="full-width font-size-5" htmlFor={playlistId}>
         {playlistName}
       </label>
     </div>

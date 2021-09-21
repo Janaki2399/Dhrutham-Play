@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import violin from "../../assets/violin.jpg";
 
 export function CategoryItem({ categoryItem }) {
   const navigate = useNavigate();
@@ -20,7 +19,7 @@ export function CategoryItem({ categoryItem }) {
       </div>
       <div className="card-content-padding flex-horizontal space-between flex-dir">
         <div className="card-title font-size-5 flex flex-column ">
-          <div>{categoryItem.name}</div>
+          <div className="font-bold-1">{categoryItem.name}</div>
           <div className="text-gray">{categoryItem.level}</div>
         </div>
         <div className="card-text font-size-5 ">

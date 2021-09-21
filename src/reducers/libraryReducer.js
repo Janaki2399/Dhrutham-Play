@@ -252,6 +252,7 @@ export function libraryReducer(state, action) {
 
     case "RESET":
       return initialState;
+      
     default:
       return state;
   }

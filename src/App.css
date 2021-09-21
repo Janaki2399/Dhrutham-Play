@@ -147,6 +147,7 @@ main {
   margin-right: 1rem;
   margin-left: 1rem;
 }
+
 @media (min-width: 537px) {
   .grid-wrapper {
     margin-top: 5rem;
